@@ -198,20 +198,30 @@ app.post('/report', function (req, res){
       }
 
         if(data==undefined){
-            var da = new User({cui:escapedCui, hasAccount: false});
+            var da = new User({cui:escapedCui, hasAccount: false, amountRange: basic.getAmountRange(escapedAmount), reclamatii:  [{reclamant: req.cookies.username, amount: escapedAmount}]});
             da.save();
-            User.findOne({ cui: escapedCui.toLowerCase() },function(err,data){})
-            .update({ $push : {reclamatii:  {reclamant: req.cookies.username, amount: escapedAmount}}},
-                function(err, result){    
-                  if(err)
-                    res.send(err);  
-                  else{
-                    res.send("success");       
-                  }
-          });
+            // User.findOne({ cui: escapedCui.toLowerCase() },function(err,data){})
+            // .update({ $push : {reclamatii:  {reclamant: req.cookies.username, amount: escapedAmount}}},
+            //     function(err, result){    
+            //       if(err || !result){
+            //         console.log(err);
+            //       }
+                     
+            //       else{
+            //         res.send("success");       
+            //       }
+            // });
         }
  
-      }).update({ $push : {reclamatii:  {reclamant: req.cookies.username, amount: escapedAmount}}},
+      });
+      User.findOne({ cui: escapedCui.toLowerCase() },function(err,data){
+
+        if(err){
+          console.log(err);
+        }
+
+ 
+      }).update({ $push : {reclamatii:  {reclamant: req.cookies.username, amount: escapedAmount, amountRange: basic.getAmountRange(escapedAmount)}}},
           function(err, result){    
             if(err)
               res.send(err);  
