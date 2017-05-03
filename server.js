@@ -16,6 +16,7 @@ var https = require('https');
 mongoose.connect('mongodb://localhost/recupero');
 //mongoose.connect('mongodb://g0lem:SF4phakPnXGunDSnhnWLxzWy@ds111798.mlab.com:11798/taiga-db');
 require("./models/user");
+require("./models/user");
 
 var User = mongoose.model('User');
 
