@@ -55,7 +55,7 @@ var server = app.listen(process.env.PORT || 8000, function(){
 //***Taiga Modules***
 var Auth = require('./recupero_modules/auth');
 
-var auth = new Auth(User);
+var auth = new Auth(Company);
 
 var account = require("./recupero_modules/account");
 account(app, auth, mongoose);

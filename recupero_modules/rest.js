@@ -7,7 +7,7 @@ module.exports = function(app, auth, mongoose){
 
   app.get('*/rest/company/:name', function(req,res){
     
-    Company.findOne({$or: [ {cui: req.params.nume}, {email: req.params.nume}]}, function(err, result){
+    Company.findOne({$or: [{cui: req.params.nume}, {email: req.params.nume}]}, function(err, result){
 
 
       var JSONresponse = {

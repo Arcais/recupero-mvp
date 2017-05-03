@@ -12,6 +12,10 @@ app.get('/register', function (req, res){
   res.sendFile(dirname + "/register.html");
 });
 
+app.get('/dashboard', function (req, res){
+  res.sendFile(dirname + "/views/dashboard.html");
+});
+
 app.get('/login', function (req, res){
   res.sendFile(dirname + "/login.html");
 });

@@ -11,34 +11,78 @@ module.exports = function(app, auth, mongoose){
   app.post('/creating', function (req, res){
 
     var userdata = req.body;
-    if(userdata.username&&userdata.password&&userdata.passwordVerif){
+    if(userdata.cui&&userdata.password&&userdata.passwordVerif){
       if(userdata.password == userdata.passwordVerif){
         passwordVerifyString = basic.passwordRegex(userdata.password);
-        usernameVerifyString = basic.usernameRegex(userdata.username);
+        cuiVerifyString = basic.usernameRegex(userdata.cui);
         emailVerifyString = basic.emailRegex(userdata.email);
+        nameVerifyString = basic.emailRegex(userdata.name);
+        addressVerifyString = basic.emailRegex(userdata.address);
+        caenVerifyString = basic.emailRegex(userdata.caen);
 
-        if(usernameVerifyString != "ok"){
-          res.send(usernameVerifyString);
+        if(cuiVerifyString != "ok"){
+          res.send(cuiVerifyString);
         }
         else if(passwordVerifyString != "ok"){
                 res.send(passwordVerifyString);
         }
+        else if(nameVerifyString != "ok"){
+                res.send(nameVerifyString);
+        }
+        else if(addressVerifyString != "ok"){
+                res.send(addressVerifyString);
+        }
         else if(emailVerifyString != "ok"){
                 res.send(emailVerifyString);
+        }
+        else if(caenVerifyString != "ok"){
+                res.send(caenVerifyString);
         }
         else {
           userdata.password = userdata.password.trim().replace(/\\(.)/mg); //Impossible to have "\" but better safe than sorry.
           var salt = bcrypt.genSaltSync(10);
           var hashedPassword = bcrypt.hashSync(userdata.password, salt);
-          var escapedUsername = basic.escapeRegExp(userdata.username);
+          var escapedCui = basic.escapeRegExp(userdata.cui);
           var escapedEmail = basic.escapeRegExp(userdata.email);
+          var escapedName = basic.escapeRegExp(userdata.name);
+          var escapedAddress = basic.escapeRegExp(userdata.address);
+          var escapedCaen = basic.escapeRegExp(userdata.caen);
 
-          User.find({ username: escapedUsername.toLowerCase() },function(err,data){
+          User.find({cui: escapedCui.toLowerCase() },function(err,data){
             if(err){
               console.log(err);
             }
             if(data.length!=0){
-              res.send("Username already exists!");
+              User.findOne({$and: [{cui: escapedCui.toLowerCase()},{ hasAccount:false }] },function(err,result){
+                if(!err && result){
+                  result.cui = escapedCui;
+                  result.name = escapedName;
+                  result.email = escapedEmail;
+                  result.address = escapedAddress;
+                  result.password = hashedPassword;
+                  result.caen = escapedCaen;
+                  result.isConfirmed = true;
+                  result.hasAccount = true;
+
+                  var today = new Date();
+                  var exp = new Date(today);
+                  exp.setDate(today.getDate() + 60);
+
+                  var token = auth.generateToken({
+                    ip: req.connection.remoteAddress,
+                    username:  escapedEmail,
+                    exp: parseInt(exp.getTime() / 1000),
+                  });
+
+                  res.cookie('sesid', token);
+
+
+                  result.sesstoken = token;
+                  result.save();
+                  res.send("Account created!");
+
+                }
+              });
             }
             else {
               
@@ -50,48 +94,22 @@ module.exports = function(app, auth, mongoose){
 
               var token = auth.generateToken({
                 ip: req.connection.remoteAddress,
-                username:  userdata.username,
+                username:  escapedEmail,
                 exp: parseInt(exp.getTime() / 1000),
               });
 
-              var user_account_activation_hash = uuid.v4();
 
               res.cookie('sesid', token);
 
               //End generate token
 
-              // create reusable transporter object using the default SMTP transport
-              var transporter = nodemailer.createTransport({
-                  service: 'gmail',
-                  auth: {
-                      user: 'saserb@gmail.com',
-                      pass: 'Steve1997'
-                  }
-              });
 
-              // setup email data with unicode symbols
-              var mailOptions = {
-                  from: '"Recupero Team"', // sender address
-                  to: userdata.email, // list of receivers
-                  subject: 'Account Activation', // Subject line
-                  text: 'Click here to activate account', // plain text body
-                  html: '' // html body
-              };
 
-              // send mail with defined transport object
-              transporter.sendMail(mailOptions, (error, info) => {
-                  if (error) {
-                      return console.log(error);
-                  }
-                  else{
-                    console.log('Message %s sent: %s', info.messageId, info.response);
-                    var userInsertObject = new User({ username: escapedUsername.toLowerCase() , screenname: escapedUsername, email: escapedEmail.toLowerCase(), account_activation_hash: user_account_activation_hash, password: hashedPassword, sesstoken: token });
-                    userInsertObject.save();
-                    res.send("Account created!");
-                  }
-              });
+              var userInsertObject = new User({ cui: escapedCui.toLowerCase() , name: escapedName, email: escapedEmail.toLowerCase(), address: escapedAddress, password: hashedPassword, sesstoken: token, caen: escapedCaen, isConfirmed: true, hasAccount: true});
+              userInsertObject.save();
+              res.send("Account created!");
 
-              
+        
             }
           });
         }
@@ -118,7 +136,7 @@ module.exports = function(app, auth, mongoose){
 
       var escapedEmail= basic.escapeRegExp(userdata.email);
     
-      User.findOne({ email: userdata.email.toLowerCase() },function(err,data){
+      User.findOne({ email: escapedEmail.toLowerCase() },function(err,data){
 
       if(err){
         console.log(err);
@@ -163,7 +181,49 @@ module.exports = function(app, auth, mongoose){
   });
   //***Account Sessions***
 
+app.post('/report', function (req, res){
 
+    var userdata=req.body;
+
+
+    if(userdata.cui&&userdata.amount){
+
+      var escapedCui =  basic.escapeRegExp(userdata.cui);
+      var escapedAmount =  basic.escapeRegExp(userdata.amount);
+    
+      User.findOne({ cui: escapedCui.toLowerCase() },function(err,data){
+
+      if(err){
+        console.log(err);
+      }
+
+        if(data==undefined){
+            var da = new User({cui:escapedCui, hasAccount: false});
+            da.save();
+            User.findOne({ cui: escapedCui.toLowerCase() },function(err,data){})
+            .update({ $push : {reclamatii:  {reclamant: req.cookies.username, amount: escapedAmount}}},
+                function(err, result){    
+                  if(err)
+                    res.send(err);  
+                  else{
+                    res.send("success");       
+                  }
+          });
+        }
+ 
+      }).update({ $push : {reclamatii:  {reclamant: req.cookies.username, amount: escapedAmount}}},
+          function(err, result){    
+            if(err)
+              res.send(err);  
+            else{
+              res.send("success");       
+            }
+      });
+    }
+    else {
+          res.send("Don't leave the fields empty!");
+    }
+  });
 
 
 
