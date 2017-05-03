@@ -16,9 +16,10 @@ var https = require('https');
 mongoose.connect('mongodb://localhost/recupero');
 //mongoose.connect('mongodb://g0lem:SF4phakPnXGunDSnhnWLxzWy@ds111798.mlab.com:11798/taiga-db');
 require("./models/user");
-require("./models/user");
+require("./models/company");
 
 var User = mongoose.model('User');
+var Company = mongoose.model('Company');
 
 //***Database Connection***
 
@@ -63,6 +64,8 @@ account(app, auth, mongoose);
 var routes = require("./recupero_modules/routes");
 routes(app, auth, __dirname);
 
+var rest = require("./recupero_modules/rest");
+rest(app, auth, mongoose);
 
 //***Taiga Modules***
 
@@ -81,10 +84,5 @@ app.use(function(req, res, next){
 
 
 
-//***adding rooms if we cleaned up the database***
-// var roomtesting = new Room({ roomname: "jojos-bizzare-adventure" , prettyname: "JoJo's Bizzare Adventure", messages:[] });
-// roomtesting.save();
-// var roomtesting = new Room({ roomname: "world-of-warcraft" , prettyname: "World of Warcraft", messages:[] });
-// roomtesting.save();
-// var roomtesting = new Room({ roomname: "breaking-bad" , prettyname: "Breaking Bad", messages:[] });
-// roomtesting.save();
+// var da = new Company({cui:"12345", caen: "ceva", nume:"bbb", reclamatii: [{caenReclamant:1212, amount: 10}, {caenReclamant: 121221, amount: 1000}]});
+// da.save();

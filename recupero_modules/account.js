@@ -5,7 +5,7 @@ var nodemailer = require('nodemailer');
 
 module.exports = function(app, auth, mongoose){
 
-  var User = mongoose.model('User');
+  var User = mongoose.model('Company');
 
   //***Account Creation***
   app.post('/creating', function (req, res){
@@ -114,11 +114,11 @@ module.exports = function(app, auth, mongoose){
     var userdata=req.body;
 
 
-    if(userdata.password&&userdata.username){
+    if(userdata.password&&userdata.email){
 
-      var escapedUsername = basic.escapeRegExp(userdata.username);
+      var escapedEmail= basic.escapeRegExp(userdata.email);
     
-      User.findOne({ username: userdata.username.toLowerCase() },function(err,data){
+      User.findOne({ email: userdata.email.toLowerCase() },function(err,data){
 
       if(err){
         console.log(err);
@@ -140,7 +140,7 @@ module.exports = function(app, auth, mongoose){
               exp.setDate(today.getDate() + 60);
               var token = auth.generateToken({
                 ip: req.connection.remoteAddress,
-                username:  userdata.username,
+                username:  userdata.email,
                 exp: parseInt(exp.getTime() / 1000),
               });
               res.cookie('sesid', token);
@@ -164,145 +164,9 @@ module.exports = function(app, auth, mongoose){
   //***Account Sessions***
 
 
-  //***Account Management***
-  app.post('/changePassword', function (req, res){
-
-    var userdata = req.body;
-    var cookie_data = auth.getTokenData(req); 
-
-    if(userdata.verify1 != userdata.verify2 && userdata.new1 != userdata.new2){
-      res.send("passwords don't match");
-      return;
-    }
-    else if(userdata.new1 && cookie_data.username){ //Fix this security issue
-
-      var escapedUsername = basic.escapeRegExp(cookie_data.username);
-
-      User.findOne({ username: cookie_data.username.toLowerCase(), sesstoken: req.cookies.sesid },function(err,data){
-        if(err){
-          console.log(err);
-        }
-        else {
-          bcrypt.compare(userdata.verify1, data.password, function(err, pwdcheck){
-            console.log(pwdcheck);
-            if(pwdcheck){
-
-              userdata.new1 = userdata.new1.trim().replace(/\\(.)/mg); //Impossible to have "\" but better safe than sorry.
-              var salt = bcrypt.genSaltSync(10);
-              var hashedPassword = bcrypt.hashSync(userdata.new1, salt);
-              data.password = hashedPassword;
-              res.send("success");
-              data.save();
-
-            }
-          });
-        }
-      });
-    }
-    else{
-      res.send("Not Same Account");
-    }
-  });
-  //***Account Management***
 
 
-  //***Account Activation***
-  app.get('/graph/activateAccount/:code', function (req, res){
 
-       User.findOne({username: req.cookies.username.toLowerCase(), account_activation_hash: req.params.code},
-      function(err, result){    
-        if(!err && result){
-          result.account_activation_hash = "activated";
-          result.save();
-        }   
-        res.redirect('/');
-      });
-
-  });
-  //***Account Activation***
-
-
-  //***Password Recovery***
-  app.post('/graph/recoverPassword', function (req, res){
-
-      console.log(basic.escapeRegExp(req.body.email));
-
-      User.findOne({email: basic.escapeRegExp(req.body.email)},
-      function(err, result){    
-        if(!err && result){
-          var pass_hash = uuid.v4();
-          result.password_reset_hash = pass_hash;
-          result.save();
-
-          var transporter = nodemailer.createTransport({
-              service: 'gmail',
-              auth: {
-                  user: 'saserb@gmail.com',
-                  pass: 'Steve1997'
-              }
-          });
-
-          // setup email data with unicode symbols
-          var mailOptions = {
-              from: '"Team Recupero" <saserb@gmail.com>', // sender address
-              to: req.body.email, // list of receivers
-              subject: 'Recover Password', // Subject line
-              text: 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
-            'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
-            'http://' + req.headers.host + '/resetPassword/' + pass_hash + '\n\n' +
-            'If you did not request this, please ignore this email and your password will remain unchanged.\n'
-          };
-
-          // send mail with defined transport object
-          transporter.sendMail(mailOptions, (error, info) => {
-              if (error) {
-                  console.log(error);
-                  res.send("An error occured while sending the email.");
-              }
-              else{
-                res.send("Email sent.");
-              }
-          });
-
-        }   
-      });
-  });
-
-
-  app.get('/resetPassword/:code', function (req, res){
-    res.sendFile(__dirname + "/reset_password.html");
-  });
-
-
-  app.post('/resetPassword/:code', function (req, res){
-
-      var userdata = req.body;
-
-      User.findOne({password_reset_hash: req.params.code},
-      function(err, result){    
-        if(!err && result){
-          
-            if(userdata.password&&userdata.passwordVerif){
-              if(userdata.password == userdata.passwordVerif){
-                passwordVerifyString = basic.passwordRegex(userdata.password);
-
-                if(passwordVerifyString != "ok"){
-                  res.send(passwordVerifyString);
-                }
-                else {
-                  userdata.password = userdata.password.trim().replace(/\\(.)/mg); //Impossible to have "\" but better safe than sorry.
-                  var salt = bcrypt.genSaltSync(10);
-                  var hashedPassword = bcrypt.hashSync(userdata.password, salt);
-                  result.password = hashedPassword;
-                  result.save();
-                  res.send('Password changed');
-                }
-              }
-            }
-        }   
-      });
-  });
-  //***Password Recovery***
 
 };
 
