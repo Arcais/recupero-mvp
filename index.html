@@ -9,7 +9,9 @@
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
 
-    <link href="css/main.css" rel="stylesheet">
+    <link href="css/prezentare.css" rel="stylesheet">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
     <!-- <script src="js/main.js"></script> -->
 
@@ -21,6 +23,225 @@
     <![endif]-->
   </head>
   <body>
+
+  <div id="top" class="section titlesection">
+
+    <div class="topbar">
+      <div class="logo">
+        <img src="img/logo.png" alt="Recupero" height="100%">
+      </div>
+      <div class="menu">
+        <a href="#section1" class="menuitem">
+          Cum functioneaza
+        </a>
+        <a href="#section2" class="menuitem">
+          Functionalitati
+        </a>
+        <a href="#section3" class="menuitem">
+          Tarife
+        </a>
+        <a href="login" class="menuitem">
+          Autentificare
+        </a>
+        <div class="menuitem">
+          <a href="register">
+            <button class="bigbtn menubigbtn">
+              Incearca Gratis
+            </button>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div id="scrolledtopbar" class="topbar displayNone">
+      <div class="logo">
+        <img src="img/logo.png" alt="Recupero" height="100%">
+      </div>
+      <div class="menu">
+        <a href="#section1" class="menuitem">
+          Cum functioneaza
+        </a>
+        <a href="#section2" class="menuitem">
+          Functionalitati
+        </a>
+        <a href="#section3" class="menuitem">
+          Tarife
+        </a>
+        <a href="login" class="menuitem">
+          Autentificare
+        </a>
+        <div class="menuitem">
+          <a href="register">
+            <button class="bigbtn menubigbtn">
+              Incearca Gratis
+            </button>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="centerbar">
+      <div class="centertext">
+        <div class="title">Aici vine motto-ul companiei noastre.</div>
+        <div class="desc">Aici vine o descriere micuta despre produsul nostru si la ce ajuta utilizatorii si inca cateva detalii si ma rog doar cateva linii stii ce zic.</div>
+        <div>
+          <button class="bigbtn">Incercati Gratis</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div id="section1" class="section">
+
+    <div class="centerbar">
+      <div class="centertext">
+        
+      </div>
+    </div>
+
+  </div>
+
+  <div id="section2" class="section">
+
+    <div class="centerbar">
+      <div class="centertext">
+
+      </div>
+    </div>
+
+  </div>
+
+  <div id="section3" class="section">
+
+    <div class="centerbar">
+      <div class="centertext titletext">
+        Preturile Noastre
+      </div>
+      <div class="pricesection">
+        <div class="pricebox">
+          <div class="pricetitlebox">Basic</div>
+          <div class="pricefinal">$30/month</div>
+          <div class="pricetitledesc">
+            <div class="priceadvantages">30 Chestii</div>
+            <div class="priceadvantages">200 Cereri lunare la Open API</div>
+            <div class="priceadvantages">Notificare pe facturi</div>
+            <div class="priceadvantages">Un cont personal</div>
+          </div>
+          <div class="pricebuy">Buy Now!</div>
+        </div>
+        <div class="pricebox">
+          <div class="pricetitlebox">Business</div>
+          <div class="pricefinal">$90/month</div>
+          <div class="pricetitledesc">
+            <div class="priceadvantages">50 Chestii</div>
+            <div class="priceadvantages">Acces nelimitat la Open API</div>
+            <div class="priceadvantages">Notificare pe facturi</div>
+            <div class="priceadvantages">Protectie virtuala a facturilor</div>
+            <div class="priceadvantages">Early access la Recupero API</div>
+            <div class="priceadvantages">Cinci conturi enterprise</div>
+          </div>
+          <div class="pricebuy">Buy Now!</div>
+        </div>
+        <div class="pricebox">
+          <div class="pricetitlebox">Enterprise</div>
+          <div class="pricefinal">$300/month</div>
+          <div class="pricetitledesc">
+            <div class="priceadvantages">250 Chestii</div>
+            <div class="priceadvantages">Protectie completa a facturilor</div>
+            <div class="priceadvantages">Early access la Recupero API</div>
+            <div class="priceadvantages">Cinspe conturi enterprise</div>
+          </div>
+          <div class="pricebuy">Buy Now!</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div id="sectionfinal" class="section">
+
+    <div class="centerbar">
+
+    </div>
+
+  </div>
+
+  <a href="#top"><div id="scrolltotop" class="hiddenRight"></div></a>
+
+  <script>
+
+
+    $(function() {
+      // Select all links with hashes
+      $('a[href*="#"]')
+        // Remove links that don't actually link to anything
+        .not('[href="#"]')
+        .not('[href="#0"]')
+        .click(function(event) {
+          // On-page links
+          if (
+            location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') 
+            && 
+            location.hostname == this.hostname
+          ) {
+            // Figure out element to scroll to
+            var target = $(this.hash);
+            target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
+            // Does a scroll target exist?
+            if (target.length) {
+              // Only prevent default if animation is actually gonna happen
+              event.preventDefault();
+              $('html, body').animate({
+                scrollTop: target.offset().top
+              }, 500, function() {
+                // Callback after animation
+                // Must change focus!
+                var $target = $(target);
+                $target.focus();
+                if ($target.is(":focus")) { // Checking if the target was focused
+                  return false;
+                } else {
+                  $target.attr('tabindex','-1'); // Adding tabindex for elements not focusable
+                  $target.focus(); // Set focus again
+                };
+              });
+            }
+          }
+        });
+
+        //Pre-Load
+        if($(document).scrollTop()>850){
+          $('#scrolltotop').removeClass('hiddenRight');
+        }
+        if($(document).scrollTop()<850){
+          $('#scrolltotop').addClass('hiddenRight');
+        }
+        if($(document).scrollTop()>100){
+          $('#scrolledtopbar').removeClass('hiddenTop');
+        }
+        if($(document).scrollTop()<100){
+          $('#scrolledtopbar').addClass('hiddenTop');
+        }
+
+        //Continuous linking on scroll
+        $(document).on("scroll", function() {
+          console.log($(document).scrollTop());
+          if($(document).scrollTop()>850){
+            $('#scrolltotop').removeClass('hiddenRight');
+          }
+          if($(document).scrollTop()<850){
+            $('#scrolltotop').addClass('hiddenRight');
+          }
+          if($(document).scrollTop()>100){
+            $('#scrolledtopbar').removeClass('hiddenTop');
+          }
+          if($(document).scrollTop()<100){
+            $('#scrolledtopbar').addClass('hiddenTop');
+          }
+        });
+      });
+  </script>
 
   </body>
 </html>
