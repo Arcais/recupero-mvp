@@ -1,0 +1,305 @@
+@import 'flexbox';
+
+$mainclr: #a63232;
+$mainclr: #d77a61;
+
+$mainclrshade:    #a63232;
+$mainclrshadow:   #760202;
+$mainclrshade: #b75a41;
+
+$lightgrey: #3c3c3c;
+$midgrey: #2B2B2B;
+$darkgrey: #222;
+$cartoongrey: #333;
+
+$menublue: #2c3e50;
+$menublue-light: #34495e;
+
+$scrollbartrack:  rgba(0,0,0,0.08);
+
+$coolorange: #d77a61;
+
+$cloudwhite: #ecf0f1;
+$silverwhite: #bdc3c7;
+$asbestoswhite: #7f8c8d;
+
+body{
+  font-family: 'Raleway', sans-serif;
+  margin:0px;
+}
+
+*::-webkit-scrollbar{
+    width: 8px!important;
+}
+*::-webkit-scrollbar-thumb{
+    background-color: $mainclrshade;
+}
+*::-webkit-scrollbar-thumb:hover{
+    background-color: $mainclrshadow;
+}
+*::-webkit-scrollbar-track{
+    background: $scrollbartrack;
+}
+
+.section{
+  height:100%;
+  width:100%;
+}
+
+.titlesection{
+  height:1000px;
+  background-image:url("../img/section-one-background-cmp.png");
+  background-size: 100%;
+  background-repeat: no-repeat;
+}
+
+.topbar{
+  width:80%;
+  margin-left: auto;
+  margin-right: auto;
+  @include flexbox('rn','sb','c');
+}
+
+#scrolledtopbar.topbar{
+  transition-duration: 0.5s;
+  transition-timing-function: ease;
+  position:fixed;
+  top:0px;
+  width:100%;
+  background-color:$cloudwhite;
+}
+
+#scrolledtopbar>.menu{
+  margin:0px;
+}
+
+#scrolledtopbar>.menu>.menuitem{
+  margin-top:10px;
+  margin-bottom:10px;
+  color:$darkgrey !important;
+}
+
+#scrolledtopbar>.menu>.menuitem:hover{
+  color:$mainclrshade !important;
+}
+
+#scrolledtopbar>.menu>.menuitem>a>.bigbtn:hover{
+  background-color:$cartoongrey;
+  color:white !important;
+}
+
+#scrolledtopbar>.logo{
+  height:80px;
+}
+
+#scrolledtopbar.hiddenTop{
+  top:-100px;
+}
+
+.logo{
+  margin:5px;
+  height:100px;
+  width:300px;
+}
+
+.menu{
+  margin:20px;
+  @include flexbox('rn','sb','c');
+}
+
+.menuitem{
+  cursor:pointer;
+  margin: 30px;
+  font-size: 18px;
+  line-height: 20px;
+  color:#fff !important;
+}
+
+.activeitem{
+  color: $mainclr;
+}
+
+.bigbtn{
+  cursor:pointer;
+  font-size:18px;
+  padding: 15px 25px !important;
+  background: $mainclr;
+  color: #fff !important;
+  border: none;
+  border-radius: 5px !important;
+  transition-duration: 0.1s;
+  transition-timing-function: linear;
+}
+
+.menubigbtn{
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.bigbtn:hover{
+  background: #fff;
+  color: $mainclr !important;  
+}
+
+.centerbar{
+  margin-left:auto;
+  margin-right:auto;
+  text-align:center;
+}
+
+.titlesection>.centerbar{
+  width:60%;
+  padding-top:260px;
+}
+
+.centertext{
+  font-size:18px;
+}
+
+.centertext>.title{
+  font-size:48px;
+  line-height:53px;
+  font-weight:400;
+  color:white;
+}
+
+.centertext>.desc{
+  padding-left:270px;
+  padding-right:270px;
+  margin-top:30px;
+  margin-bottom:30px;
+  color:white;
+}
+
+.centertext>.bigbtn{
+  margin-top:10px;
+  margin-bottom:10px;  
+}
+
+a{
+  text-decoration:none;
+}
+
+#section1{
+  height:1000px;
+  background-color:$menublue;
+}
+
+#section2{
+  height:1000px;
+  background-image:url("../img/section-one-background-cmp.png");
+  background-size: 100%;
+  background-repeat: no-repeat;  
+}
+
+#section3{
+  background-color:$cloudwhite;
+}
+
+#sectionfinal{
+  height:240px;
+  background-color:$darkgrey;
+  border-top:1px solid $lightgrey;
+}
+
+#scrolltotop{
+  transition-duration: 0.5s;
+  transition-timing-function: ease;
+  cursor:pointer;
+  position:fixed;
+  right:50px;
+  bottom:50px;
+  width:50px;
+  height:50px;
+  border-radius:30%;
+  background-color:$mainclr;
+  color:white;
+  text-align:center;
+}
+
+#scrolltotop:before{
+  content:'^';
+  font-size:40px;
+  line-height:60px;
+  font-weight:bold;
+}
+
+#scrolltotop.hiddenRight{
+  right:-100px;
+}
+
+#scrolltotop:hover{
+  background-color:$mainclrshade;
+}
+
+.pricesection{
+  padding:50px;
+  padding-left:200px;
+  padding-right:200px;
+  @include flexbox('rw','sa','c')
+}
+
+.pricebox{
+  transition-duration: 0.2s;
+  transition-timing-function: ease;
+  cursor:pointer;
+  width:360px;
+  box-shadow:1px 1px 20px $silverwhite;
+  text-align:center;
+  background-color:$cloudwhite;
+}
+
+.pricebox:hover{
+  box-shadow:1px 1px 30px $asbestoswhite;  
+}
+
+.pricetitlebox{
+  height:100px;
+  background-color:$mainclr;
+  color:$cloudwhite;
+  font-size:40px;
+  line-height:100px;
+}
+
+.pricefinal{
+  height:80px;
+  background-color:$menublue-light;
+  font-size:24px;
+  line-height:80px;
+}
+
+.pricetitledesc{
+  
+}
+
+.priceadvantages{
+  transition-duration: 0.2s;
+  transition-timing-function: ease;
+  height:80px;
+  color:$darkgrey;
+  font-size: 20px;
+  line-height:80px;
+}
+
+.priceadvantages:hover{
+  background-color:#dedede;
+}
+
+.pricebuy{
+  height:80px;
+  font-size:30px;
+  line-height:80px;
+  background-color:$mainclr;
+}
+
+.pricebuy:hover{
+  background-color:$mainclrshade;
+}
+
+.titletext{
+  font-size:48px;
+  line-height:53px;
+  font-weight:400;
+  color:$darkgrey;
+  padding-top:50px;
+}
