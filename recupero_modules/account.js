@@ -1,7 +1,6 @@
 var bcrypt = require('bcryptjs');
 var basic = require("./basic_functions");
 var uuid = require('node-uuid');
-var nodemailer = require('nodemailer');
 
 module.exports = function(app, auth, mongoose){
 

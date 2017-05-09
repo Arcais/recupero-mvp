@@ -12,7 +12,6 @@
     "cookie-parser": "latest",
     "jsonwebtoken": "latest",
     "node-uuid": "latest",
-    "nodemailer": "latest",
     "convert-excel-to-json": "1.0.0"
   },
   "devDependencies": {
