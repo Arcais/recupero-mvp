@@ -7,7 +7,6 @@ var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var uuid = require('node-uuid');
 var https = require('https');
-
 //***Dependencies***
 
 
@@ -20,7 +19,6 @@ require("./models/company");
 
 var User = mongoose.model('User');
 var Company = mongoose.model('Company');
-
 //***Database Connection***
 
 
@@ -66,7 +64,6 @@ routes(app, auth, __dirname);
 
 var rest = require("./recupero_modules/rest");
 rest(app, auth, mongoose);
-
 //***Taiga Modules***
 
 
@@ -84,5 +81,5 @@ app.use(function(req, res, next){
 
 
 
-// var da = new Company({cui:"12345", caen: "ceva", nume:"bbb", reclamatii: [{caenReclamant:1212, amount: 10}, {caenReclamant: 121221, amount: 1000}]});
-// da.save();
+// var tempAddObjectToDatabase = new Company({cui:"12345", caen: "ceva", nume:"bbb", reclamatii: [{caenReclamant:1212, amount: 10}, {caenReclamant: 121221, amount: 1000}]});
+// tempAddObjectToDatabase.save();

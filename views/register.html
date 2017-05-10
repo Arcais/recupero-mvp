@@ -11,28 +11,107 @@
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+
+    <link href="css/packages/uikit.min.css" rel="stylesheet">
+    <link href="css/login.css" rel="stylesheet">
+
     <script src="packages/jquery-1.11.3.min.js"></script>
-    <script src="scripts/basic-ui.js"></script>
+    <script src="packages/uikit.min.js"></script>
+    <script src="packages/uikit-icons.min.js"></script>
+
   </head>
   <body>
-   
+    
+    <div class="topbar">
+      <div class="topbox logobox">
+        <img src="img/logo.png" alt="Recupero">
+      </div>
+      <div class="topbox linkbox">
+        <a href="/">Pagina principala</a>
+        <a href="/login" class="round-button-link">Login</a>
+      </div>
+    </div>
 
-          <div>
-            <div>
-              <!-- <div class="registertitle">Registration</div> -->
-              <input type="text" id="name" placeholder="Enter a name"/>
-              <input type="text" id="cui" placeholder="Enter CUI"/>
-              <input type="text" id="address" placeholder="Enter address"/>
-              <input type="text" id="caen" placeholder="Enter caen"/>
-              <input type="email" id="email" placeholder="Enter email"/>
-              <input type="password" id="pass1" placeholder="Enter a password"/>
-              <input type="password" id="pass2" placeholder="Re-enter the password"/>
-              <button id="sign_up" class="centerinput send"" class="send">Sign Up</button>
-            </div>
-            <div id="status" align="center"></div>
-          </div>
+    <div class="formBox uk-card uk-card-default uk-card-body uk-width-1-2@m" id="registerForm">
+
+      <div id="initialRegisterBox" class="insideBox" style="padding-left:75px;padding-right:75px;">
+
+        <h1 class="uk-card-title">Inregistrare</h1>
+
+        <div class="uk-inline">
+          <span class="uk-form-icon" uk-icon="icon: user"></span>
+          <input id="name" class="uk-input uk-width-medium" type="text" placeholder="Introduceti un nume"/>
+        </div>
+
+        <div class="uk-inline">
+          <span class="uk-form-icon" uk-icon="icon: mail"></span>
+          <input id="name" class="uk-input uk-width-medium" type="email" placeholder="Email-ul dumneavoastra"/>
+        </div>
+
+        <div class="uk-inline">
+          <span class="uk-form-icon" uk-icon="icon: lock"></span>
+          <input id="pass1" class="uk-input uk-width-medium" type="password" placeholder="Parola dorita"/>
+        </div>
+
+        <div class="uk-inline">
+          <span class="uk-form-icon" uk-icon="icon: lock"></span>
+          <input id="pass2" class="uk-input uk-width-medium" type="password" placeholder="Re-introduceti parola"/>
+        </div>
+
+        <button class="send uk-button uk-button-danger" type="submit" id="sign_up_first_step" style="margin-top:30px;">Urmatorul pas</button>
+
+        <div id="status"></div>
+
+      </div>
+     
+      <div id="finalRegisterBox" class="insideBox" style="padding-left:75px;padding-right:75px;">
+
+        <h1 class="uk-card-title">Informatii Legale</h1>
+
+        <div class="uk-inline">
+          <span class="uk-form-icon" uk-icon="icon: location"></span>
+          <input id="address" class="uk-input uk-width-medium" type="text" placeholder="Introduceti adresa companiei Dvs."/>
+        </div>
+
+        <div class="uk-inline">
+          <span class="uk-form-icon" uk-icon="icon: tag"></span>
+          <input id="cui" class="uk-input uk-width-medium" type="text" placeholder="CUI-ul companiei Dvs."/>
+        </div>
+
+        <div class="uk-inline">
+          <span class="uk-form-icon" uk-icon="icon: hashtag"></span>
+          <input id="caen" class="uk-input uk-width-medium" type="text" placeholder="CAEN-ul companiei Dvs."/>
+        </div>
+
+        <div class="uk-inline">
+          <span class="uk-form-icon" uk-icon="icon: world"></span>
+          <input id="altceva" class="uk-input uk-width-medium" type="text" placeholder="Altceva de introdus"/>
+        </div>
+
+        <button class="send uk-button uk-button-danger" type="submit" id="sign_up" style="margin-top:30px;">Depuneti Cerere</button>
+        <button class="send uk-button uk-button-primary" type="submit" id="sign_up_go_back">Pasul Anterior</button>
+
+        <div id="status"></div>
+
+      </div>
+
+    </div>
+
+<!--     <div>
+      <div>
+        <input type="text" id="cui" placeholder="Enter CUI"/>
+        <input type="text" id="address" placeholder="Enter address"/>
+        <input type="text" id="caen" placeholder="Enter caen"/>
+        <button id="sign_up" class="centerinput send"" class="send">Sign Up</button>
+      </div>
+      <div id="status" align="center"></div>
+    </div> -->
 
 
-    <script src="scripts/basic-ui.js"></script>
+    <script src="js/basic-ui.js"></script>
+
   </body>
 </html>

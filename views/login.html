@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, maximum-scale=1.0, initial-scale=0.75">
-    <title>Recupero  - Login</title>
+    <title>Recupero - Login</title>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -12,22 +12,55 @@
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
     
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+
+    <link href="css/packages/uikit.min.css" rel="stylesheet">
+    <link href="css/login.css" rel="stylesheet">
+
     <script src="packages/jquery-1.11.3.min.js"></script>
+    <script src="packages/uikit.min.js"></script>
+    <script src="packages/uikit-icons.min.js"></script>
 
   </head>
   <body>
+    
+    <div class="topbar">
+      <div class="topbox logobox">
+        <img src="img/logo.png" alt="Recupero">
+      </div>
+      <div class="topbox linkbox">
+        <a href="/">Pagina principala</a>
+        <a href="/register" class="round-button-link" style="padding-left:26px;padding-right:26px;">Inregistrare</a>
+      </div>
+    </div>
 
-          <div>
-            <div>
-              <!-- <div class="registertitle">Login</div> -->
-              <input id="email" type="email" placeholder="Email"/>
-              <input id="pass" type="password" placeholder="Password"/>
-              <button type="submit" id="login" class="send">Login</button>
-            </div>
-            <div id="status" align="center"></div>
-          </div>
+    <div class="formBox uk-card uk-card-default uk-card-body uk-width-1-2@m">
+
+      <div class="insideBox">
+
+        <h2 class="uk-card-title">Login</h2>
+
+        <div class="uk-inline">
+          <span class="uk-form-icon" uk-icon="icon: mail"></span>
+          <input id="email" class="uk-input" type="email" placeholder="Email"/>
+        </div>
+
+        <div class="uk-inline">
+          <span class="uk-form-icon" uk-icon="icon: lock"></span>
+          <input id="pass" class="uk-input" type="password" placeholder="Password"/>
+        </div>
+
+        <button class="send uk-button uk-button-danger" type="submit" id="login">Login</button>
+
+        <div id="status"></div>
+
+      </div>
+
+    </div>
 
     
-    <script src="scripts/basic-ui.js"></script>
+    <script src="js/basic-ui.js"></script>
+
   </body>
 </html>

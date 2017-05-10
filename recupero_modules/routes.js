@@ -36,16 +36,12 @@ app.get('*/video/:videoname', function (req, res){
   res.sendFile(dirname + "/video/"+req.params.videoname);
 });
 
-app.get('*/packages/:packagename', function (req, res){
-  res.sendFile(dirname + "/packages/"+req.params.packagename);
-});
-
 app.get('*/node_modules/:folder/:filename', function (req, res){
   res.sendFile(dirname + "/node_modules/"+req.params.folder+"/"+ req.params.filename);
 });
 
-app.get('*/scripts/:scriptname', function (req, res){
-  res.sendFile(dirname + "/scripts/"+req.params.scriptname);
+app.get('*/js/:scriptname', function (req, res){
+  res.sendFile(dirname + "/js/"+req.params.scriptname);
 });
 
 app.get('*/partials/:partialfolder/:partialname', function (req, res){
@@ -58,6 +54,14 @@ app.get('*/img/emoji/:emojiname', function(req,res){
 
 app.get('*/css/:stylename', function(req,res){
   res.sendFile(dirname + "/css/"+req.params.stylename);
+});
+
+app.get('*/css/packages/:stylepackagename', function(req,res){
+  res.sendFile(dirname + "/css/packages/"+req.params.stylepackagename);
+});
+
+app.get('*/packages/:packagename', function (req, res){
+  res.sendFile(dirname + "/packages/"+req.params.packagename);
 });
 
 app.get('*/auth/getUsername', auth.isAuth, function (req, res){
