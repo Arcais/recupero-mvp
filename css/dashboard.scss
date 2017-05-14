@@ -1,0 +1,202 @@
+@import 'elements/flexbox';
+@import 'elements/variables';
+
+body{
+  font-family: 'Raleway', sans-serif;
+  margin:0px;
+}
+
+*::-webkit-scrollbar{
+    width: 8px!important;
+}
+*::-webkit-scrollbar-thumb{
+    background-color: $mainclrshade;
+}
+*::-webkit-scrollbar-thumb:hover{
+    background-color: $mainclrshadow;
+}
+*::-webkit-scrollbar-track{
+    background: $scrollbartrack;
+}
+
+html {
+  height: 100%;
+}
+body {
+  min-height: 100%;
+}
+body{
+  background-color: $cloudwhite;
+}
+a{
+  text-decoration: none;
+}
+a:hover{
+  text-decoration: none;
+}
+
+#sideNav{
+  position:absolute;
+  left:0px;
+  height:100%;
+  width:100%;
+  max-width:260px;
+  background-color:$darkgrey;
+  box-shadow: 5px 0 15px rgba(0,0,0,.08);
+}
+
+#centralContainer{
+  position:absolute;
+  height:100%;
+  right:0px;
+  width:calc(100% - 260px);
+}
+
+#topNav{
+  position:relative;
+  width:100%;
+  height:80px;
+  background-color:$lightwhite;
+  box-shadow: 0 2px 10px rgba(0,0,0,.08);
+  @include flexbox("rn","fe","c");
+}
+
+#logocontainer{
+  position:relative;
+  width:100%;
+  height:80px;
+}
+
+.sideButtons{
+  position:relative;
+  width:100%;
+  padding-top:100%;
+  padding-bottom:100%;
+  // @include flexbox("cn","c","c");
+}
+
+.sidebtn{
+  color:$cloudwhite;
+  padding:16px;
+  padding-top:10px;
+  padding-bottom:10px;
+  font-size:16px;
+  line-height:36px;
+  cursor:pointer;
+  transition-duration: 0.2s;
+  transition-timing-function: ease;
+}
+
+.sidebtn:hover{
+  // color:$mainclr;
+  border-left: 4px solid $mainclr;
+  background-color: rgba(0,0,0,.08);
+}
+
+//Fixing OCD icons
+.sidebtn>.uk-icon{
+  position: relative;
+  top: -2px;
+}
+
+#contentContainer{
+  position:relative;
+  height:calc(100% - 80px);
+  width:100%;
+  overflow-y: auto;
+  // @include linear-gradient-background(90deg, $blueberry, $skyblue);
+}
+
+.topNavButton{
+}
+
+.topNavLink{
+  cursor:pointer;
+  margin:8px;
+  transition-duration: 0.2s;
+  transition-timing-function: ease;
+}
+
+.topNavLink:hover{
+  color:$darkgrey;
+}
+
+#registerCompanyBtn{
+  // cursor:pointer;
+  margin-right:20px;
+}
+
+#topSettingsBtn{
+  margin-right:20px;
+}
+
+#topManageBtn{
+}
+
+#content{
+  padding:40px;
+}
+
+.searchContainer{
+  position:relative;
+  margin:20px;
+  width:800px;
+  @include flexbox("rn","c","c");
+  margin-left: auto;
+  margin-right: auto;
+  margin-top:10px;
+}
+
+.searchContainer>.searchBar{
+  background-color:white;
+  color:$cartoongrey;
+}
+.searchContainer>.searchBar:hover{
+  border-color:$blueprimarybtn;
+  background-color:white;
+  color:$cartoongrey;
+}
+.searchContainer>.searchBar:active{
+  border-color:$blueprimarybtn;
+  background-color:white;
+  color:$cartoongrey;
+}
+.searchContainer>.searchBar:focus{
+  border-color:$blueprimarybtn;
+  background-color:white;
+  color:$cartoongrey;
+}
+
+.boxContent{
+  width:100%;
+  @include flexbox("rw","sa","c");
+}
+
+.box{
+  margin:20px;
+}
+
+.accountInfo{
+  width:100%;
+}
+
+.dashInfo{
+  @include flexbox("rw","sb","c");
+  margin:20px;
+}
+
+.dashInfo>.dashPersonalInfo{
+  font-weight:600;
+  font-size:18px;
+}
+
+.dashBadcompanyList{
+  width:100%;
+}
+
+.dashBadcompanyList>.badCompanyTable{
+  text-align:center;
+}
+.dashBadcompanyList>.badCompanyTable>tbody>tr>th{
+  text-align:center;
+}

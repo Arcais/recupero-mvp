@@ -14,11 +14,11 @@ var https = require('https');
 //***Database Connection***
 mongoose.connect('mongodb://localhost/recupero');
 //mongoose.connect('mongodb://g0lem:SF4phakPnXGunDSnhnWLxzWy@ds111798.mlab.com:11798/taiga-db');
-require("./models/user");
+require("./models/reclamatie");
 require("./models/company");
 
-var User = mongoose.model('User');
-var Company = mongoose.model('Company');
+var Reclamatie = mongoose.model('Reclamatie');
+var Companie = mongoose.model('Companie');
 //***Database Connection***
 
 
@@ -53,7 +53,7 @@ var server = app.listen(process.env.PORT || 8000, function(){
 //***Taiga Modules***
 var Auth = require('./recupero_modules/auth');
 
-var auth = new Auth(Company);
+var auth = new Auth(Companie);
 
 var account = require("./recupero_modules/account");
 account(app, auth, mongoose);
@@ -81,5 +81,8 @@ app.use(function(req, res, next){
 
 
 
-// var tempAddObjectToDatabase = new Company({cui:"12345", caen: "ceva", nume:"bbb", reclamatii: [{caenReclamant:1212, amount: 10}, {caenReclamant: 121221, amount: 1000}]});
+// var tempAddObjectToDatabase = new Companie({cui:"12345", caen: "ceva", nume:"bbb", reclamatii: [{caenReclamant:1212, amount: 10}, {caenReclamant: 121221, amount: 1000}]});
 // tempAddObjectToDatabase.save();
+
+var tempAddObjectToDatabase = new Companie({cui:"12345", caen: "32434", nume:"aaa", reclamatii: [{caenReclamant:1212, amount: 10, fromExcel: 1, amountPaid:0}]});
+tempAddObjectToDatabase.save();

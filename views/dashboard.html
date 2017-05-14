@@ -12,14 +12,86 @@
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
     
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+
+    <link href="css/packages/uikit.min.css" rel="stylesheet">
+    <link href="css/dashboard.css" rel="stylesheet">
+    
     <script src="packages/jquery-1.11.3.min.js"></script>
+    <script src="packages/uikit.min.js"></script>
+    <script src="packages/uikit-icons.min.js"></script>
 
   </head>
   <body>
 
-          <div>
+  <div id="sideNav">
+    <div id="logocontainer">
+      <img class="uk-position-center" src="img/logo.png" alt="Recupero">
+    </div>
+    <div class="uk-flex uk-flex-column sideButtons">
+
+      <a href="/dashboard">
+        <div class="sidebtn">
+          <span uk-icon="icon: home" class="uk-margin-small-right uk-icon">
+          </span>
+          Dashboard
+        </div>
+      </a>
+
+      <a href="/manage">
+        <div class="sidebtn">
+          <span uk-icon="icon: list" class="uk-margin-small-right uk-icon">
+          </span>
+          Gestionare rau-platnici
+        </div>
+      </a>
+
+      <a href="/settings">
+        <div class="sidebtn">
+          <span uk-icon="icon: cog" class="uk-margin-small-right uk-icon">
+          </span>
+          Setari
+        </div>
+      </a>
+
+      <a href="/logout">
+        <div class="sidebtn">
+          <span uk-icon="icon: sign-out" class="uk-margin-small-right uk-icon">
+          </span>
+          Logout
+        </div>
+      </a>
+
+    </div>
+  </div>
+
+  <div id="centralContainer">
+
+    <div id="topNav">
+
+      <div class="topNavButton topNavLink" id="topManageBtn">
+        <span uk-icon="icon: list; ratio:1.4" class="uk-icon"></span>
+      </div>
+      <div class="topNavButton topNavLink" id="topSettingsBtn">
+        <span uk-icon="icon: cog; ratio:1.4" class="uk-icon"></span>
+      </div>
+      <div class="topNavButton" id="registerCompanyBtn">
+        <button class="send uk-button uk-button-danger" id="regBtn">Inregistreaza rau-platnic</button>
+      </div>
+
+    </div>
+
+    <div id="contentContainer">
+      <div uk-spinner class="uk-position-center" style="height:100px;width:100px;"></div>
+      <div id="content">
+      </div>
+    </div>
+    
+  </div>
+
+<!--           <div>
             <div>
-              <!-- <div class="registertitle">Login</div> -->
               <input id="cui" type="text" placeholder="CUI"/>
               <input id="amount" type="text" placeholder="amount"/>
               <button type="submit" id="report" class="send">Report</button>
@@ -31,7 +103,7 @@
             </div>
             <div id="status" align="center"></div>
           </div>
-
+ -->
     
     <script src="scripts/basic-ui.js"></script>
   </body>
