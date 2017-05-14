@@ -16,6 +16,18 @@ app.get('/dashboard', function (req, res){
   res.sendFile(dirname + "/views/dashboard.html");
 });
 
+app.get('/manage', function (req, res){
+  res.sendFile(dirname + "/views/manage.html");
+});
+
+app.get('/search', function (req, res){
+  res.sendFile(dirname + "/views/search.html");
+});
+
+app.get('/info', function (req, res){
+  res.sendFile(dirname + "/views/info.html");
+});
+
 app.get('/login', function (req, res){
   res.sendFile(dirname + "/views/login.html");
 });

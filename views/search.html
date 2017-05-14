@@ -89,74 +89,61 @@
     <div id="contentContainer">
 
       <div uk-spinner class="uk-position-center" style="height:100px;width:100px;"></div>
-
+      
       <div id="content">
+
 
         <div class="uk-search uk-search-default searchContainer" uk-scrollspy="cls:uk-animation-slide-top">
           <span uk-search-icon></span>
           <input id="searchInput" class="uk-search-input searchBar" type="search" placeholder="Cautati rau-platnici dupa nume sau CUI">
           <button id="searchCompany" class="searchButton uk-button uk-button-primary">Cauta</button>
         </div>
-        <div class="boxContent">
-          <div class="box uk-card uk-card-body uk-card-default dashBadcompanyList" uk-scrollspy="cls:uk-animation-slide-bottom">
-            <div class="uk-card-title">
-              Reclamatii noi
-            </div>
-            <hr>
-            <table class="uk-table uk-table-divider uk-table-hover uk-overflow-auto uk-table-responsive badCompanyTable">
-              <tr>
-                <th>CUI</th>
-                <th>Denumirea companiei</th>
-                <th>Vechimea datoriei</th>
-                <th>Valoarea datoriei</th>
-                <th>CAEN reclamant</th>
-                <th>Numarul facturii</th>
-              </tr>
-              <tr>
-                <td>33397595</td>
-                <td>Bicycle Courier SRL-D</td>
-                <td>100-170 zile</td>
-                <td>2.500-3.500 RON</td>
-                <td>5320</td>
-                <td>273847</td>
-              </tr>
-              <tr>
-                <td>33397595</td>
-                <td>Bicycle Courier SRL-D</td>
-                <td>600-700 zile</td>
-                <td>20.000-30.000 RON</td>
-                <td>5320</td>
-                <td>273121</td>
-              </tr>
-              <tr>
-                <td>28367463</td>
-                <td>Cook Accounting SRL</td>
-                <td>30-80 zile</td>
-                <td>5.000-7.500 RON</td>
-                <td>4712</td>
-                <td>174563</td>
-              </tr>
-            </table>
+        <div class="box uk-card uk-card-body uk-card-default dashBadcompanyList" uk-scrollspy="cls:uk-animation-slide-bottom">
+          <div class="uk-card-title">
+            Reclamatii depuse
           </div>
-          <div class="box uk-card uk-card-body uk-card-default accountInfo" uk-scrollspy="cls:uk-animation-slide-bottom">
-            <div class="uk-card-title">
-              Informatii despre cont
-            </div>
-            <hr>
-            <div class="dashInfo">
-              <div class="dashPersonalInfo">
-                <div class="dashPersonalInfoName">
-                  Firma Generala SRL
-                </div>
-                <div class="dashPersonalCUI">
-                  37465734
-                </div>
-                <div class="dashPersonalAddress">
-                  Bucuresti, Str. Generalilor nr. 72
-                </div>
-              </div>
-            </div>
-          </div>
+          <hr>
+          <table class="uk-table uk-table-divider uk-table-hover uk-overflow-auto uk-table-responsive badCompanyTable">
+            <tr>
+              <th>CUI</th>
+              <th>Denumirea companiei</th>
+              <th>Vechimea datoriei</th>
+              <th>Valoarea datoriei</th>
+              <th>CAEN reclamant</th>
+            </tr>
+            <tr>
+              <td>33397595</td>
+              <td>Bicycle Courier SRL-D</td>
+              <td>100-150 zile</td>
+              <td>2.500-5.000</td>
+              <td>5320</td>
+            </tr>
+            <tr>
+              <td>33397595</td>
+              <td>Bicycle Courier SRL-D</td>
+              <td>600-700 zile</td>
+              <td>20.000-30.000</td>
+              <td>5320</td>
+            </tr>
+            <tr>
+              <td>28367463</td>
+              <td>Cook Accounting SRL</td>
+              <td>30-50 zile</td>
+              <td>5.000-10.000</td>
+              <td>4712</td>
+            </tr>
+          </table>
+
+          <ul class="uk-pagination uk-flex-center" uk-margin>
+              <li><a href="#"><span uk-pagination-previous></span></a></li>
+              <li class="uk-disabled"><span>...</span></li>
+              <li><a href="#">6</a></li>
+              <li class="uk-active"><span>7</span></li>
+              <li><a href="#">8</a></li>
+              <li class="uk-disabled"><span>...</span></li>
+              <li><a href="#"><span uk-pagination-next></span></a></li>
+          </ul>
+
         </div>
 
       </div>
