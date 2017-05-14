@@ -115,6 +115,7 @@ a:hover{
   margin:8px;
   transition-duration: 0.2s;
   transition-timing-function: ease;
+  color:#666;
 }
 
 .topNavLink:hover{
@@ -199,4 +200,8 @@ a:hover{
 }
 .dashBadcompanyList>.badCompanyTable>tbody>tr>th{
   text-align:center;
+}
+
+#topNav>a{
+  color: #666;
 }
