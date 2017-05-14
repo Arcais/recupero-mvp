@@ -180,60 +180,6 @@ module.exports = function(app, auth, mongoose){
   });
   //***Account Sessions***
 
-app.post('/report', function (req, res){
-
-    var userdata=req.body;
-
-
-    if(userdata.cui&&userdata.amount){
-
-      var escapedCui =  basic.escapeRegExp(userdata.cui);
-      var escapedAmount =  basic.escapeRegExp(userdata.amount);
-    
-      User.findOne({ cui: escapedCui.toLowerCase() },function(err,data){
-
-      if(err){
-        console.log(err);
-      }
-
-        if(data==undefined){
-            var da = new User({cui:escapedCui, hasAccount: false, amountRange: basic.getAmountRange(escapedAmount), reclamatii:  [{reclamant: req.cookies.username, amount: escapedAmount}]});
-            da.save();
-            // User.findOne({ cui: escapedCui.toLowerCase() },function(err,data){})
-            // .update({ $push : {reclamatii:  {reclamant: req.cookies.username, amount: escapedAmount}}},
-            //     function(err, result){    
-            //       if(err || !result){
-            //         console.log(err);
-            //       }
-                     
-            //       else{
-            //         res.send("success");       
-            //       }
-            // });
-        }
- 
-      });
-      User.findOne({ cui: escapedCui.toLowerCase() },function(err,data){
-
-        if(err){
-          console.log(err);
-        }
-
- 
-      }).update({ $push : {reclamatii:  {reclamant: req.cookies.username, amount: escapedAmount, amountRange: basic.getAmountRange(escapedAmount)}}},
-          function(err, result){    
-            if(err)
-              res.send(err);  
-            else{
-              res.send("success");       
-            }
-      });
-    }
-    else {
-          res.send("Don't leave the fields empty!");
-    }
-  });
-
 
 
 

@@ -13,7 +13,8 @@ $("#sign_up").on('click', function(){
           cui :           $("#cui").val() ,
           address :       $("#address").val() ,
           passwordVerif : $("#pass2").val(),
-          caen : $("#caen").val()
+          number :        $("#number").val(),
+          caen :          $("#caen").val()
         }
         //***register account***
         $.post( "/creating", preparedJSON, function( res ) {
@@ -87,6 +88,8 @@ $("#report").on('click', function(){
 var preparedJSON = {
         cui : $("#cui").val() ,
         amount : $("#amount").val() ,
+        dateRegistered : $("#dateRegistered").val() ,
+        idFactura : $("#idFactura").val() 
       }
       //***login account***
       $.post( "/report", preparedJSON, function( res ) {

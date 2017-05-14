@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, maximum-scale=1.0, initial-scale=0.75">
+    <title>Recupero  - Login</title>
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    
+    <script src="packages/jquery-1.11.3.min.js"></script>
+  </head>
+  <body>
+
+<!--           <div>
+            <div>
+              <input id="fileInput" type="file" name="files[]" placeholder=""/>
+              <button type="submit" id="uploadExcel" class="send">Upload</button>
+            </div>
+            <div id="status" align="center"></div>
+          </div> -->
+<form enctype="multipart/form-data" action="/upload/excel/" method="post">
+    <input id="file" name="file" type="file" />
+    <input type="submit"/>
+</form>
+    
+    <script src="scripts/basic-ui.js"></script>
+  </body>
+</html>

@@ -42,7 +42,12 @@ module.exports.passwordRegex = function(password){
 }
 //***Regular Expressions***
 
+module.exports.removeLetters = function(myString){
 
+return myString.replace(/\D/g,'');
+
+
+}
 
 //***Basic Functions***
 var escapeRegExp;
@@ -87,7 +92,25 @@ var escapeRegExp;
 
   return str.replace(regex, "\\$&");
   };
+
+module.exports.escapeRegExpJSON = function(JSON){
+
+  for(var i in JSON){
+
+    JSON[i] = JSON[i].replace(regex, "\\$&");
+
+  }
+
+  return JSON;
+
+}
+
+
+
 }());
+
+
+
 
 module.exports.getAmountRange = function(amount){
 
