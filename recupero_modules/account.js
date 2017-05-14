@@ -4,7 +4,7 @@ var uuid = require('node-uuid');
 
 module.exports = function(app, auth, mongoose){
 
-  var User = mongoose.model('Company');
+  var User = mongoose.model('Companie');
 
   //***Account Creation***
   app.post('/creating', function (req, res){

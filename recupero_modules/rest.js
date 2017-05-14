@@ -2,7 +2,7 @@
 module.exports = function(app, auth, mongoose){
 
 
-  var Company = mongoose.model('Company');
+  var Company = mongoose.model('Companie');
 
 
   app.get('*/rest/company/:name', function(req,res){
