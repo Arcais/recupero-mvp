@@ -65,7 +65,8 @@ routes(app, auth, __dirname);
 var rest = require("./recupero_modules/rest");
 rest(app, auth, mongoose);
 //***Taiga Modules***
-
+var upload = require("./recupero_modules/upload");
+upload(app, auth, mongoose, __dirname);
 
 
 //***App Status Configuration***
