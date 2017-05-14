@@ -20,7 +20,7 @@ app.get('/manage', function (req, res){
   res.sendFile(dirname + "/views/manage.html");
 });
 
-app.get('/search', function (req, res){
+app.get('/search/:companySearch', function (req, res){
   res.sendFile(dirname + "/views/search.html");
 });
 
@@ -54,6 +54,10 @@ app.get('*/node_modules/:folder/:filename', function (req, res){
 
 app.get('*/js/:scriptname', function (req, res){
   res.sendFile(dirname + "/js/"+req.params.scriptname);
+});
+
+app.get('*/vue/:scriptname', function (req, res){
+  res.sendFile(dirname + "/vue/"+req.params.scriptname);
 });
 
 app.get('*/partials/:partialfolder/:partialname', function (req, res){

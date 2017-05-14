@@ -39,7 +39,10 @@
 
 $("#searchCompany").on('click', function(){
 
-window.location.href="/search/"+$("#searchInput").val()+"/1";
-// window.location.href="/search";
+    var searchCompanyTag = $("#searchInput").val();
+
+    if(searchCompanyTag&&searchCompanyTag!=''&&searchCompanyTag!=""){
+        window.location.href="/search/"+searchCompanyTag;
+    }
 
 });
