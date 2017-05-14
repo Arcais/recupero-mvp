@@ -205,3 +205,56 @@ a:hover{
 #topNav>a{
   color: #666;
 }
+
+#loadCompanies{
+  overflow: hidden;
+}
+
+#loadCompanies>.uk-modal-body{
+  height: 90%;
+}
+
+#loadCompanies>.uk-modal-body>.uk-modal-header{
+  text-align:center;
+}
+
+#loadCompanies>.uk-modal-body>.uk-grid{
+  height: 290%;
+  padding:30px;
+  padding-left: 0px;
+  padding-right: 0;
+  text-align:center;
+}
+
+.formBox{
+  // padding-right:10px;
+  // padding-left:10px;
+  max-height: 30%;
+  overflow-y:auto;
+}
+
+.explainBox{
+  font-size:14px;
+  color: #666;
+  padding: 20px;
+  border: 1px solid #e5e5e5;
+  border-radius: 3px;
+  background: #fff;
+  max-height:200px;
+  overflow-y:auto;
+}
+
+.formBox>.insideBox>.uk-inline,
+.formBox>.insideBox>.uk-button{
+  margin-top:15px;
+  margin-bottom:15px;
+}
+
+.insideBox>.radioBox{
+  width:80%;
+  text-align:left;
+}
+
+.insideBox>.radioBox>.uk-form-label{
+  font-size:18px;
+}

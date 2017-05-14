@@ -84,23 +84,23 @@ app.use(function(req, res, next){
 // var tempAddObjectToDatabase = new Companie({cui:"12345", caen: "ceva", nume:"bbb", reclamatii: [{caenReclamant:1212, amount: 10}, {caenReclamant: 121221, amount: 1000}]});
 // tempAddObjectToDatabase.save();
 
-var tempAddObjectToDatabase = new Companie({cui:"8374672", nume:"Companie de test", address:"Str. Generalilor nr. 11", hasAccount:0, caen:"3743"});
-tempAddObjectToDatabase.save();
-var tempAddObjectToDatabase = new Companie({cui:"7346367", nume:"Agrico SRL", address:"Str. Iordache Andreescu nr. 23", hasAccount:0, caen:"2122"});
-tempAddObjectToDatabase.save();
+// var tempAddObjectToDatabase = new Companie({cui:"8374672", nume:"Companie de test", address:"Str. Generalilor nr. 11", hasAccount:0, caen:"3743"});
+// tempAddObjectToDatabase.save();
+// var tempAddObjectToDatabase = new Companie({cui:"7346367", nume:"Agrico SRL", address:"Str. Iordache Andreescu nr. 23", hasAccount:0, caen:"2122"});
+// tempAddObjectToDatabase.save();
 
-function convertDashesToDate(dateStr) {
-    var parts = dateStr.split("-");
-    return new Date(parts[2], parts[1] - 1, parts[0]);
-}
+// function convertDashesToDate(dateStr) {
+//     var parts = dateStr.split("-");
+//     return new Date(parts[2], parts[1] - 1, parts[0]);
+// }
 
-var dateBef = convertDashesToDate("23-06-2009");
-var dateBef2 = convertDashesToDate("8-02-2015");
-var dateBef3 = convertDashesToDate("17-04-2017");
-var tempAddObjectToDatabase2 = new Reclamatie({idFactura:"3746536",reclamant:"Companie de test",cuiReclamant:"8374672", caenReclamant:"3743", reclamat:"Agrico SRL", cuiReclamat:"7346367", amount:"28000", dateRegistered: dateBef, fromExcel: 1, amountPaid: 0});
-tempAddObjectToDatabase2.save();
-var tempAddObjectToDatabase2 = new Reclamatie({idFactura:"3834636",reclamant:"Companie de test",cuiReclamant:"8374672", caenReclamant:"3743", reclamat:"Agrico SRL", cuiReclamat:"7346367", amount:"17000", dateRegistered: dateBef2, fromExcel: 1, amountPaid: 0});
-tempAddObjectToDatabase2.save();
-var tempAddObjectToDatabase2 = new Reclamatie({idFactura:"4837236",reclamant:"Companie de test",cuiReclamant:"8374672", caenReclamant:"3743", reclamat:"Agrico SRL", cuiReclamat:"7346367", amount:"183000", dateRegistered: dateBef3, fromExcel: 0, amountPaid: 0});
-tempAddObjectToDatabase2.save();
+// var dateBef = convertDashesToDate("23-06-2009");
+// var dateBef2 = convertDashesToDate("8-02-2015");
+// var dateBef3 = convertDashesToDate("17-04-2017");
+// var tempAddObjectToDatabase2 = new Reclamatie({idFactura:"3746536",reclamant:"Companie de test",cuiReclamant:"8374672", caenReclamant:"3743", reclamat:"Agrico SRL", cuiReclamat:"7346367", amount:"28000", dateRegistered: dateBef, fromExcel: 1, amountPaid: 0});
+// tempAddObjectToDatabase2.save();
+// var tempAddObjectToDatabase2 = new Reclamatie({idFactura:"3834636",reclamant:"Companie de test",cuiReclamant:"8374672", caenReclamant:"3743", reclamat:"Agrico SRL", cuiReclamat:"7346367", amount:"17000", dateRegistered: dateBef2, fromExcel: 1, amountPaid: 0});
+// tempAddObjectToDatabase2.save();
+// var tempAddObjectToDatabase2 = new Reclamatie({idFactura:"4837236",reclamant:"Companie de test",cuiReclamant:"8374672", caenReclamant:"3743", reclamat:"Agrico SRL", cuiReclamat:"7346367", amount:"183000", dateRegistered: dateBef3, fromExcel: 0, amountPaid: 0});
+// tempAddObjectToDatabase2.save();
 

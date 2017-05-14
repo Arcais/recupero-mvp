@@ -81,34 +81,104 @@
         </div>
       </a>
       <div class="topNavButton" id="registerCompanyBtn">
-        <button class="send uk-button uk-button-danger" id="regBtn">Inregistreaza rau-platnic</button>
+        <button class="send uk-button uk-button-danger" id="regBtn" uk-toggle="target: #loadCompanies">Inregistreaza rau-platnic</button>
       </div>
 
     </div>
 
     <div id="contentContainer">
-      <div uk-spinner class="uk-position-center" style="height:100px;width:100px;"></div>
+
+      <!-- <div uk-spinner class="uk-position-center" style="height:100px;width:100px;"></div> -->
+      
       <div id="content">
+        
       </div>
+    </div>
+
+    <div id="loadCompanies" class="uk-modal-container" uk-modal="center: true">
+        <div class="uk-modal-dialog uk-modal-body">
+          <button class="uk-modal-close-default" type="button" uk-close></button>
+          <div class="uk-modal-header">
+              <div class="uk-modal-title">Inregistreaza rau-platnic</div>
+          </div> 
+          <div class="uk-grid uk-grid-divider uk-child-width-expand@s" uk-grid>
+            <div id="#manualCompanyLoader" class="formBox" style="padding-right: 10px;margin-right: -20px;">
+              
+              <h2>Incarcati Manual</h2>
+              <hr>
+              <div class="explainBox uk-margin-small">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras nunc dui, varius vitae ullamcorper aliquam, placerat id sapien. Nullam a porttitor nulla. Morbi ullamcorper, justo sed convallis hendrerit, erat urna congue libero, ut volutpat nibh enim id ex. Nulla facilisi. Mauris congue diam vel magna vulputate sollicitudin. Mauris justo dui, laoreet sed purus nec, iaculis volutpat elit. Vivamus non varius massa, eu ullamcorper lacus.
+              </div>
+
+              <form class="insideBox uk-form-stacked uk-width-1-1" action="">
+                <div class="uk-inline">
+                  <span class="uk-form-icon" uk-icon="icon: tag"></span>
+                  <input id="cuiReclamat" class="uk-input uk-width-large" type="text" placeholder="Introduceti CUI-ul debitorului"/>
+                </div>
+
+                <div class="uk-inline">
+                  <span class="uk-form-icon" uk-icon="icon: social"></span>
+                  <input id="numeReclamat" class="uk-input uk-width-large" type="text" placeholder="Introduceti CUI-ul debitorului"/>
+                </div>
+
+                <div class="uk-inline">
+                  <span class="uk-form-icon" uk-icon="icon: hashtag"></span>
+                  <input id="idFactura" class="uk-input uk-width-large" type="text" placeholder="Seria facturii declarate"/>
+                </div>
+
+                <div class="uk-inline">
+                  <span class="uk-form-icon" uk-icon="icon: database"></span>
+                  <input id="valoare" class="uk-input uk-width-large" type="text" placeholder="Valoarea totala"/>
+                </div>
+
+                <div class="uk-inline">
+                  <span class="uk-form-icon" uk-icon="icon: calendar"></span>
+                  <input id="data" class="uk-input uk-width-large" type="text" placeholder="Data scadentei"/>
+                </div>
+
+                <div class="uk-inline radioBox">
+                  <div class="uk-form-label">Debitorul contesta factura?</div>
+                  <div class="uk-form-controls">
+                      <label><input class="uk-radio" type="radio" name="radio1"> Nu</label><br>
+                      <label><input class="uk-radio" type="radio" name="radio1"> Da, acesta a contestat factura in instanta</label><br>
+                      <label><input class="uk-radio" type="radio" name="radio1"> Da, dar factura nu a fost contestata in instanta pana in prezent</label>
+                  </div>
+                </div>
+
+                <button class="send uk-button uk-button-danger" type="submit" id="" style="margin-top:30px;">Reclamati compania</button>
+              </form>
+
+              <div id="statusManual"></div>
+              
+            </div>
+            <div id="#excelCompanyLoader" class="formBox">
+              
+              <h2>Incarcati prin Excel</h2>
+              <hr>
+              <div class="explainBox uk-margin-small">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras nunc dui, varius vitae ullamcorper aliquam, placerat id sapien. Nullam a porttitor nulla. Morbi ullamcorper, justo sed convallis hendrerit, erat urna congue libero, ut volutpat nibh enim id ex. Nulla facilisi. Mauris congue diam vel magna vulputate sollicitudin. Mauris justo dui, laoreet sed purus nec, iaculis volutpat elit. Vivamus non varius massa, eu ullamcorper lacus.
+              </div>
+              <h4>Selectati fisierul excel din care sa incarcati rau-platnicii</h4>
+              <div class="excel-upload uk-placeholder uk-text-center">
+                <div uk-form-custom>
+                  <input type="file">
+                  <div uk-icon="icon: cloud-upload; ratio:2" style="margin-bottom:10px;"></div>
+                  <div class="uk-text-middle">Dati click si selectati sau trageti peste dreptunghi excel-ul cu rau-platnicii</div>
+                </div>
+              </div>
+              <progress id="progressbar" class="uk-progress" value="0" max="100" hidden></progress>
+
+              <div id="statusAuto"></div>
+
+            </div>
+          </div>
+
+        </div>
     </div>
     
   </div>
 
-<!--           <div>
-            <div>
-              <input id="cui" type="text" placeholder="CUI"/>
-              <input id="amount" type="text" placeholder="amount"/>
-              <button type="submit" id="report" class="send">Report</button>
-              <br><br><br><br>
+  <script src="js/basic-ui.js"></script>
 
-              <input id="amount" type="text" placeholder="search"/>
-              <button type="submit" id="report" class="send">Search</button>
-
-            </div>
-            <div id="status" align="center"></div>
-          </div>
- -->
-    
-    <script src="scripts/basic-ui.js"></script>
   </body>
 </html>
