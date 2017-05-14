@@ -1,4 +1,3 @@
-
 var mongoose = require('mongoose');
 
 //**Users**
@@ -10,6 +9,7 @@ var companySchema = new mongoose.Schema({
   isConfirmed: Boolean,
   caen: String,
   password:String,
+  subscribedTo: [String],
   sesstoken: {
      type: String,
      default: ""
