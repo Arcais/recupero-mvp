@@ -20,15 +20,6 @@ app.get('/manage', function (req, res){
   res.sendFile(dirname + "/views/manage.html");
 });
 
-app.get('/upload', function (req, res){
-  res.sendFile(dirname + "/views/upload.html");
-});
-
-app.get('/report', function (req, res){
-  res.sendFile(dirname + "/views/report.html");
-});
-
-
 app.get('/search/:companySearch', function (req, res){
   res.sendFile(dirname + "/views/search.html");
 });
