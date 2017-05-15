@@ -135,17 +135,17 @@ module.exports = function(app, auth, mongoose){
 
 
 
-  app.get('*/rest/reclamatii/:nume/:numar', function(req,res){
+app.get('*/rest/reclamatii/:nume/:numar', function(req,res){
 
     
-    Reclamatie.find({$or: [ {cuiReclamat: req.params.nume}, {nume: req.params.nume}]}, function(err, result){
+    Reclamatie.find({$or: [ {cuiReclamat: {'$regex': req.params.nume} }, {nume: {'$regex': req.params.nume} }]}, function(err, result){
 
 
       res.send(result);
 
     }).skip(parseInt(req.params.numar)).limit(10);
 
-  });
+});
 
   app.get('*/rest/reclamatii/length/:nume', function(req,res){
 
