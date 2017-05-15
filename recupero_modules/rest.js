@@ -39,13 +39,6 @@ module.exports = function(app, auth, mongoose){
     
     Reclamatie.find({}, function(err, result){
 
-      // var mapData = result.map(function(a) {
-      // return {
-      //   reclamatii: a.reclamatii.map(function(b){ return {caenReclamant: b.caenReclamant, amount: b.amount, cui: a.cui, nume: a.nume}}),
-      // }
-      // }); //pretty much is making an array of all the "reclamatii" arrays, the problem is that we have an array of arrays
-      // var desiredResult = mapData.map(function(c){return c.reclamatii}) // var desiredResult = [].concat.apply([], mapData); //this merges the array of arrays into  a single array, instead of having an array for every single company that reported another one
-      // desiredResult = [].concat.apply([], desiredResult);
       res.send(result);
 
     });
@@ -95,6 +88,22 @@ module.exports = function(app, auth, mongoose){
 
   })
 
+  app.get('*/rest/getSubscriberNumber/', function(req,res){
+
+    Company.findOne({ email: req.cookies.username }, function(err, subs){
+
+
+          Company.find({cui: {$in: subs.subscribedTo}}, function(err, result){
+
+
+            res.send(result.length);
+
+          });
+
+    })
+
+
+  })
 
 
 
@@ -104,13 +113,6 @@ module.exports = function(app, auth, mongoose){
     
     Reclamatie.find( { cuiReclamat: {'$regex': req.params.nume} }, function(err, result){
 
-      // var mapData = result.map(function(a) {
-      // return {
-      //   reclamatii: a.reclamatii.map(function(b){ return {caenReclamant: b.caenReclamant, amount: b.amount, cui: a.cui, nume: a.nume}}),
-      // }
-      // }); //pretty much is making an array of all the "reclamatii" arrays, the problem is that we have an array of arrays
-      // var desiredResult = mapData.map(function(c){return c.reclamatii}) // var desiredResult = [].concat.apply([], mapData); //this merges the array of arrays into  a single array, instead of having an array for every single company that reported another one
-      // desiredResult = [].concat.apply([], desiredResult);
       res.send(result);
 
     });
@@ -125,13 +127,6 @@ module.exports = function(app, auth, mongoose){
     
     Reclamatie.find({$or: [ {cuiReclamat: req.params.nume}, {nume: req.params.nume}]}, function(err, result){
 
-      // var mapData = result.map(function(a) {
-      // return {
-      //   reclamatii: a.reclamatii.map(function(b){ return {caenReclamant: b.caenReclamant, amount: b.amount, cui: a.cui, nume: a.nume}}),
-      // }
-      // }); //pretty much is making an array of all the "reclamatii" arrays, the problem is that we have an array of arrays
-      // var desiredResult = mapData.map(function(c){return c.reclamatii}) // var desiredResult = [].concat.apply([], mapData); //this merges the array of arrays into  a single array, instead of having an array for every single company that reported another one
-      // desiredResult = [].concat.apply([], desiredResult);
       res.send(result);
 
     });
@@ -170,13 +165,6 @@ module.exports = function(app, auth, mongoose){
     
     Reclamatie.find({$or: [ {cuiReclamant: req.params.nume}, {nume: req.params.nume}]}, function(err, result){
 
-      // var mapData = result.map(function(a) {
-      // return {
-      //   reclamatii: a.reclamatii.map(function(b){ return {caenReclamant: b.caenReclamant, amount: b.amount, cui: a.cui, nume: a.nume}}),
-      // }
-      // }); //pretty much is making an array of all the "reclamatii" arrays, the problem is that we have an array of arrays
-      // var desiredResult = mapData.map(function(c){return c.reclamatii}) // var desiredResult = [].concat.apply([], mapData); //this merges the array of arrays into  a single array, instead of having an array for every single company that reported another one
-      // desiredResult = [].concat.apply([], desiredResult);
       res.send(result);
 
     });
@@ -189,10 +177,6 @@ module.exports = function(app, auth, mongoose){
     
     Reclamatie.find({}, function(err, result){
 
-
-
-      //var mapData = result.map(function(a) {return a.reclamatii;}); //pretty much is making an array of all the "reclamatii" arrays, the problem is that we have an array of arrays
-      //var desiredResult = [].concat.apply([], mapData); //this merges the array of arrays into a single array, instead of having an array for every single company that reported another one
       res.send(result);
 
     });
@@ -221,18 +205,6 @@ app.post('/report', function (req, res){
             var temp = new Company({cui: userdata.cui, nume: userdata.nume, hasAccount: false});
             temp.save();
 
-
-            // User.findOne({ cui: escapedCui.toLowerCase() },function(err,data){})
-            // .update({ $push : {reclamatii:  {reclamant: req.cookies.username, amount: escapedAmount}}},
-            //     function(err, result){    
-            //       if(err || !result){
-            //         console.log(err);
-            //       }
-                     
-            //       else{
-            //         res.send("success");       
-            //       }
-            // });
         }
  
       });
