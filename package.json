@@ -12,7 +12,7 @@
     "cookie-parser": "latest",
     "jsonwebtoken": "latest",
     "node-uuid": "latest",
-    "convert-excel-to-json": "latest",
+    "convert-excel-to-json": "1.0.0",
     "multer": "latest"
   },
   "devDependencies": {

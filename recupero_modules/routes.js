@@ -5,14 +5,14 @@ module.exports = function(app, auth, dirname){
 //***Routing***
 
 app.get('/', auth.isAuth, function (req, res){
-  res.sendFile(dirname + "/index.html");
+  res.sendFile(dirname + "/views/dashboard.html");
 });
 
 app.get('/register', function (req, res){
   res.sendFile(dirname + "/views/register.html");
 });
 
-app.get('/dashboard', function (req, res){
+app.get('/dashboard', auth.isAuth, function (req, res){
   res.sendFile(dirname + "/views/dashboard.html");
 });
 
