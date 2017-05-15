@@ -99,10 +99,10 @@ module.exports = function(app, auth, mongoose){
 
 
 
-  app.get('*/rest/reclamatii2/:nume', function(req,res){
+  app.get('*/rest/reclamatii/:nume', function(req,res){
 
     
-    Reclamatie.find( { cui: { $search: req.params.nume } }, function(err, result){
+    Reclamatie.find( { cuiReclamat: {'$regex': req.params.nume} }, function(err, result){
 
       // var mapData = result.map(function(a) {
       // return {
@@ -120,7 +120,7 @@ module.exports = function(app, auth, mongoose){
 
 
 
-  app.get('*/rest/reclamatii/:nume', function(req,res){
+  app.get('*/rest/reclamatii_strict/:nume', function(req,res){
 
     
     Reclamatie.find({$or: [ {cuiReclamat: req.params.nume}, {nume: req.params.nume}]}, function(err, result){
