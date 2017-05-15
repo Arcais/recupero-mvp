@@ -117,7 +117,7 @@ module.exports = function(app, auth, mongoose){
 
   });
 
-
+  //Cauta reclamatiile pentru search (in functie de reclamat)
   app.get('*/rest/reclamatii/:nume/:numar', function(req,res){
 
     
@@ -143,6 +143,7 @@ module.exports = function(app, auth, mongoose){
   });
 
 
+  //Cauta reclamatiile pentru manage (in functie de reclamant)
   app.get('*/rest/reclamant/:nume', function(req,res){
 
     
@@ -177,8 +178,14 @@ module.exports = function(app, auth, mongoose){
 
   });
 
-
-
+//Object format for post
+//{
+//cui
+//nume
+//idFactura 
+//amount
+//dateRegistered
+//}
 app.post('/report', function (req, res){
 
     var userdata = basic.escapeRegExpJSON(req.body);
@@ -228,7 +235,6 @@ app.post('/report', function (req, res){
   });
 
 
-  //SEE IF YOU CAN MAKE IT IN SUCH A WAY THAT YOU CAN SEE WHO DID THE REPORTING
 
 // var da = new Company({cui:"123"});
 // da.save();

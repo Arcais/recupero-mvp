@@ -12,7 +12,8 @@
     "cookie-parser": "latest",
     "jsonwebtoken": "latest",
     "node-uuid": "latest",
-    "convert-excel-to-json": "1.0.0"
+    "convert-excel-to-json": "latest",
+    "multer": "latest"
   },
   "devDependencies": {
     "gulp": "^3.9.1",
