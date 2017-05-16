@@ -114,7 +114,7 @@ body{
 
 #registerForm.formBox{
   @include flexbox("rn");
-  overflow-x:hidden;
+  overflow:hidden;
   max-height: 630px;
   max-width:450px;
   transition: max-height;

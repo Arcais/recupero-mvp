@@ -20,8 +20,12 @@ app.get('/manage', function (req, res){
   res.sendFile(dirname + "/views/manage.html");
 });
 
-app.get('/search/:companySearch', function (req, res){
+app.get('/search/:companySearch/:page', function (req, res){
   res.sendFile(dirname + "/views/search.html");
+});
+
+app.get('/search/:companySearch', function (req, res){
+  res.redirect('/search/'+req.params.companySearch+'/1');
 });
 
 app.get('/info', function (req, res){

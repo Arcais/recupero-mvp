@@ -23,14 +23,13 @@ var upload = multer({storage: storage});
 
 module.exports = function(app, auth, mongoose, dirname){
 
-
   var Company = mongoose.model('Companie');
   var Reclamatie = mongoose.model('Reclamatie');
 
   app.post('/upload/excel/', upload.single('file'), auth.isAuth, function (req, res) {
 
-    console.log(req.file);
-
+    if(req.file){
+ 
     //***loading cookie data so we can get our username***
     var cookie_data = auth.getTokenData(req); //LOAD COOKIE DATA
     var data = {};
@@ -79,13 +78,21 @@ module.exports = function(app, auth, mongoose, dirname){
 
                  var jsonInDBFormat = json.Sheet1.forEach(function(a){
 
-                    var properJSON = {_id: result.cui + basic.removeLetters(a.C), cuiReclamat: a.A, reclamat: a.B, idFactura: basic.removeLetters(a.C), ammount: a.D, ammountRange: basic.getAmountRange(a.D), dateRegistered: a.F, fromExcel: true, amountPaid: false, reclamant: result.nume, cuiReclamant: result.cui, caenReclamant: result.caen};
+                    function convertDotsToDate(dateStr) {
+                        var parts = dateStr.split(".");
+                        return new Date(parts[2], parts[1] - 1, parts[0]);
+                    }
 
-                    Company.findOne({cui: a.A}, function(err, result3){ 
+                    a.F = convertDotsToDate(a.F);
 
-                      if(err || !result){
+                    var properJSON = {_id: result.cui + basic.removeLetters(a.C), cuiReclamat: basic.removeLetters(a.A), reclamat: a.B, idFactura: basic.removeLetters(a.C), amount: a.D, amountRange: basic.getAmountRange(a.D), dateRegistered: a.F, fromExcel: true, amountPaid: false, reclamant: result.nume, cuiReclamant: result.cui, caenReclamant: result.caen};
 
-                        var temp = new Company({cui: a.A, nume: a.b, hasAccount: false});
+
+                    Company.findOne({cui: properJSON.cuiReclamat}, function(err, result3){ 
+
+                      if(err || !result3){
+
+                        var temp = new Company({cui: properJSON.cuiReclamat, nume: properJSON.reclamat, hasAccount: false});
                         temp.save();
 
                       }
@@ -93,11 +100,14 @@ module.exports = function(app, auth, mongoose, dirname){
                     })
 
 
-                    Reclamatie.findOne({_id: result.cui + removeLetters(a.C)}, function(err, result2){
+                    Reclamatie.findOne({_id: result.cui + basic.removeLetters(a.C)}, function(err, result2){
+
+
                         if(result2 && !err){
                          
+
                           for(var k in properJSON){
-                             result2[k]=properJSON[k];
+                              result2[k]=properJSON[k];
                           }
                          
                           result2.save();
@@ -121,7 +131,7 @@ module.exports = function(app, auth, mongoose, dirname){
             //});                         
           });
 
-
+      }
   });
 
 

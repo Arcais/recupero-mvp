@@ -105,22 +105,19 @@ module.exports = function(app, auth, mongoose){
 
   })
 
-
-
-
   app.get('*/rest/reclamatii/:nume', function(req,res){
 
+    var stripedName = req.params.nume;
+    stripedName = stripedName.replace(/-/g,' ');
+
     
-    Reclamatie.find( { cuiReclamat: {'$regex': req.params.nume} }, function(err, result){
+    Reclamatie.find( { cuiReclamat: {'$regex': stripedName } }, function(err, result){
 
       res.send(result);
 
     });
 
   });
-
-
-
 
   app.get('*/rest/reclamatii_strict/:nume', function(req,res){
 
@@ -137,23 +134,31 @@ module.exports = function(app, auth, mongoose){
   //Cauta reclamatiile pentru search (in functie de reclamat)
   app.get('*/rest/reclamatii/:nume/:numar', function(req,res){
 
+    var stripedName = req.params.nume;
+    stripedName = stripedName.replace(/-/g,' ');
     
-    Reclamatie.find({$or: [ {cuiReclamat: req.params.nume}, {nume: req.params.nume}]}, function(err, result){
+    Reclamatie.find({$or: [ {cuiReclamat: {'$regex': stripedName} }, {reclamat: {'$regex': stripedName} }]}, function(err, result){
 
 
       res.send(result);
 
-    }).skip(parseInt(req.params.numar)).limit(10);
+    }).skip(parseInt(req.params.numar)).limit(8);
 
   });
 
-  app.get('*/rest/reclamatii/length/:nume', function(req,res){
+  app.get('*/rest/numarReclamatii/:nume', function(req,res){
 
-    
-    Reclamatie.find({$or: [ {cuiReclamat: req.params.nume}, {nume: req.params.nume}]}, function(err, result){
+    var stripedName = req.params.nume;
+    stripedName = stripedName.replace(/-/g,' ');
 
+    Reclamatie.find({$or: [ {cuiReclamat: {'$regex': stripedName} }, {reclamat: {'$regex': stripedName} }]}, function(err, result){
 
-      res.send(result.length);
+      //Stii de ce e asa?
+      //Pentru ca node cand vede un numar, el crede ca tu vrei sa trimiti un status code gen 404 si se buseste ca nu gaseste status code de 3
+      //Thanks node :)
+      var preparedArray = [];
+      preparedArray.push(result.length);
+      res.send(preparedArray);
 
     });
 
@@ -171,6 +176,17 @@ module.exports = function(app, auth, mongoose){
     });
 
   });
+
+  // app.get('*/rest/numarReclamant/:nume', function(req,res){
+
+    
+  //   Reclamatie.find({$or: [ {cuiReclamant: req.params.nume}, {nume: req.params.nume}]}, function(err, result){
+
+  //     res.send(result.length);
+
+  //   });
+
+  // });
 
   app.get('*/rest/test', function(req,res){
 
@@ -192,39 +208,73 @@ module.exports = function(app, auth, mongoose){
 //amount
 //dateRegistered
 //}
-app.post('/report', function (req, res){
+app.post('/report', function (req, res){                    
+
+  function convertDotsToDate(dateStr) {
+                        var parts = dateStr.split("\\.");
+                        return new Date(parts[2], parts[1] - 1, parts[0]);
+                    }
 
     var userdata = basic.escapeRegExpJSON(req.body);
 
     console.log(userdata);
 
-    if(userdata.cui&&userdata.amount){
-    
-      Company.findOne({ cui: userdata.cui },function(err,data){
-
-      if(err){
-        console.log(err);
-      }
-
-        if(data==undefined){
-
-
-            var temp = new Company({cui: userdata.cui, nume: userdata.nume, hasAccount: false});
-            temp.save();
-
+    if(userdata.cui!=''&&userdata.amount!=''&&userdata.nume!=''&&userdata.date!=''&&userdata.idFactura!=''){
+        cuiVerifyString = basic.cuiRegex(userdata.cui);
+        nameVerifyString = basic.companynameRegex(userdata.nume);
+        if(cuiVerifyString != "ok"){
+          res.send(cuiVerifyString);
         }
- 
-      });
-      Company.findOne({ email: req.cookies.username.toLowerCase() },function(err,result){
+        else if(nameVerifyString != "ok"){
+          res.send(nameVerifyString);
+        }
+        else{
+    
+          Company.findOne({ cui: userdata.cui },function(err,data){
 
-                var temp = new Reclamatie({_id: result.cui + basic.removeLetters(userdata.idFactura), cuiReclamat: userdata.cui, idFactura: basic.removeLetters(userdata.idFactura), amount: userdata.amount, amountRange: basic.getAmountRange(userdata.amount), 
-                                           fromExcel: false, amountPaid: false, reclamant: result.nume, cuiReclamant: result.cui, caenReclamant: result.caen, reclamat: userdata.nume}); //add date
+          if(err){
+            console.log(err);
+          }
+
+            if(data==undefined){
+
+                    console.log(2);
+
+                var temp = new Company({cui: userdata.cui,
+                                        nume: userdata.nume,
+                                        hasAccount: false});
                 temp.save();
 
-      });
+            }
+     
+          });
+          Company.findOne({ email: req.cookies.username.toLowerCase() },function(err,result){
+
+                    console.log(result);
+
+                    var temp = new Reclamatie({ _id: result.cui + basic.removeLetters(userdata.idFactura), 
+                                                cuiReclamat: userdata.cui,
+                                                idFactura: basic.removeLetters(userdata.idFactura),
+                                                amount: userdata.amount,
+                                                amountRange: basic.getAmountRange(userdata.amount),
+                                                dateRegistered: convertDotsToDate(userdata.date), 
+                                                fromExcel: false,
+                                                amountPaid: false,
+                                                reclamant: result.nume,
+                                                cuiReclamant: result.cui,
+                                                caenReclamant: result.caen,
+                                                reclamat: userdata.nume});
+                    temp.save();
+                    console.log(temp);
+                    // if(saved){
+                    //   res.send("Reclamatia a fost inregistrata!");
+                    // }
+
+          });
+        }
     }
     else {
-          res.send("Don't leave the fields empty!");
+          res.send("Va rugam completati toate randurile!");
     }
   });
 

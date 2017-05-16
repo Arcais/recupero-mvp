@@ -7,22 +7,24 @@ $("#sign_up_go_back").on('click', function(){
 
 $("#sign_up").on('click', function(){
         var preparedJSON = {
-          name :          $("#name").val() ,
+          name :          $("#denumcomp").val() ,
           password :      $("#pass1").val() ,
           email :         $("#email").val() ,
           cui :           $("#cui").val() ,
           address :       $("#address").val() ,
           passwordVerif : $("#pass2").val(),
           number :        $("#number").val(),
-          caen :          $("#caen").val()
+          caen :          $("#caen").val(),
+          confToken:      $("#token").val()
         }
+        console.log(preparedJSON.name);
         //***register account***
         $.post( "/creating", preparedJSON, function( res ) {
 
-              $("#status").html(res);
+              $(".status").html(res);
                   if(res=="Account created!"){
                       setTimeout(function(){
-                      window.location.href = ("/");
+                      window.location.href = ("/login");
                             //$window.url('/');
                        }, 500);
                   }   

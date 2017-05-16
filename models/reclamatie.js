@@ -3,6 +3,8 @@ var mongoose = require('mongoose');
 //**Reclamatii**
 var reclamatieSchema = new mongoose.Schema({
 
+  _id: String,
+
   idFactura:String,    //Id-ul facturii (luat din excel)
 
   reclamant:String,    //compania
