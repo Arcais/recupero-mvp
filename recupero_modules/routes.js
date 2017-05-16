@@ -8,7 +8,7 @@ app.get('/', auth.isAuth, function (req, res){
   res.sendFile(dirname + "/views/dashboard.html");
 });
 
-app.get('/register', function (req, res){
+app.get('/register', auth.isNotAuth, function (req, res){
   res.sendFile(dirname + "/views/register.html");
 });
 
@@ -32,7 +32,7 @@ app.get('/info', function (req, res){
   res.sendFile(dirname + "/views/info.html");
 });
 
-app.get('/login', function (req, res){
+app.get('/login', auth.isNotAuth, function (req, res){
   res.sendFile(dirname + "/views/login.html");
 });
 

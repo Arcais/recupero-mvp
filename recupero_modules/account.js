@@ -7,7 +7,7 @@ module.exports = function(app, auth, mongoose){
   var User = mongoose.model('Companie');
 
   //***Account Creation***
-  app.post('/creating', function (req, res){
+  app.post('/creating', auth.isNotAuth, function (req, res){
 
     var userdata = req.body;
     if(userdata.cui&&userdata.password&&userdata.passwordVerif){
@@ -142,7 +142,7 @@ module.exports = function(app, auth, mongoose){
 
 
   //***Account Sessions***
-  app.post('/loggingIn', function (req, res){
+  app.post('/loggingIn', auth.isNotAuth, function (req, res){
 
     var userdata=req.body;
 
