@@ -1,5 +1,7 @@
 (function ($) {
 
+    $("#spinnerLoader").addClass("finishedLoading");
+    
     var bar = $("#progressbar")[0];
 
     UIkit.upload('.excel-upload', {
