@@ -1,15 +1,72 @@
 //***Regular Expressions***
 
 
+module.exports.addressRegex = function(username){
+  if(username.length < 4){//put <4, but I wanna test
+    return("Numele adresei prea scurt!");
+  }
+  else if(username.length > 50){
+    return("Numele adresei prea lung!");
+  }
+  else if(username.search(/[^a-zA-Z0-9 \_\.]/) != -1){
+    return("In numele adresei puteti folosi litere, cifre si urmatoarele simboluri:\"., _\". ");
+  }
+  return("ok");
+}
+
+
+
+module.exports.cuiRegex = function(username){
+  if(username.length < 6){//put <4, but I wanna test
+    return("CUI-ul contine minim 9 cifre");
+  }
+  else if(username.length > 10){
+    return("CUI-ul contine maxim 10 cifre");
+  }
+  else if(username.search(/[^0-9\_\.]/) != -1){
+    return("In CUI puteti folosi doar cifre.");
+  }
+  return("ok");
+}
+
+module.exports.caenRegex = function(username){
+  if(username.length < 4){//put <4, but I wanna test
+    return("CAEN-ul contine minim 4 cifre");
+  }
+  else if(username.length > 4){
+    return("CAEN-ul contine maxim 4 cifre");
+  }
+  else if(username.search(/[^0-9\_\.]/) != -1){
+    return("In CAEN puteti folosi doar cifre.");
+  }
+  return("ok");
+}
+
+
+module.exports.companynameRegex = function(username){
+  if(username.length < 4){//put <4, but I wanna test
+    return("Numele companiei prea scurt!");
+  }
+  else if(username.length > 50){
+    return("Numele companiei prea lung!");
+  }
+  else if(username.search(/[^a-zA-Z0-9 \_\.]/) != -1){
+    return("In numele companiei puteti folosi litere, cifre si urmatoarele simboluri:\"., _\". ");
+  }
+  return("ok");
+}
+
+
+
 module.exports.usernameRegex = function(username){
   if(username.length < 4){//put <4, but I wanna test
-    return("Username is too short!");
+    return("Nume de utilizator prea scurt!");
   }
-  else if(username.length > 12){
-    return("Username is too long!");
+  else if(username.length > 22){
+    return("Nume de utilizator prea lung!");
   }
   else if(username.search(/[^a-zA-Z0-9\_\.]/) != -1){
-    return("In your username you can only use letters, numbers and the next set of symbols:\"., _\". ");
+    return("In numele de utilizator puteti folosi litere, cifre si urmatoarele simboluri:\"., _\". ");
   }
   return("ok");
 }
@@ -30,13 +87,13 @@ module.exports.emailRegex = function(username){
 
 module.exports.passwordRegex = function(password){
   if(password.length < 6){//put <6, but I wanna test
-    return("Password is too short!");
+    return("Parola este prea scurta!");
   }
   else if(password.length > 50){
-    return("Password is too long!");
+    return("Parola este prea lunga!");
   }
   else if(password.search(/[^a-zA-Z0-9\!\@\#\$\*\_\+\.]/) != -1){
-    return("In your password you can only use letters, numbers and the next set of symbols:\"!, @, #, $, *, ., +, _\". ");
+    return("In parola puteti folosi litere, numere si urmatoarele simboluri:\"!, @, #, $, *, ., +, _\". ");
   }
   return("ok");
 }

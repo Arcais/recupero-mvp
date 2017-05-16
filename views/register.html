@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, maximum-scale=1.0, initial-scale=0.75">
-    <title>Recupero - Sign Up</title>
+    <title>Alerto - Inregistrare</title>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -37,7 +37,7 @@
 
     <div class="formBox uk-card uk-card-default uk-card-body uk-width-1-2@m" id="registerForm">
 
-      <div id="initialRegisterBox" class="insideBox" style="padding-left:75px;padding-right:75px;">
+      <form id="initialRegisterBox" class="insideBox" style="padding-left:75px;padding-right:75px;" action="javascript:void(0);">
 
         <h1 class="uk-card-title">Inregistrare</h1>
 
@@ -63,11 +63,11 @@
 
         <button class="send uk-button uk-button-danger" type="submit" id="sign_up_first_step" style="margin-top:30px;">Urmatorul pas</button>
 
-        <div id="status"></div>
+        <div class="status" style="margin-top: 30px;"></div>
 
-      </div>
+      </form>
      
-      <div id="finalRegisterBox" class="insideBox" style="padding-left:75px;padding-right:75px;">
+      <form id="finalRegisterBox" class="insideBox" style="padding-left:75px;padding-right:75px;" action="javascript:void(0);">
 
         <h1 class="uk-card-title">Informatii Companiei Dvs.</h1>
 
@@ -98,15 +98,15 @@
 
         <div class="uk-inline">
           <span class="uk-form-icon" uk-icon="icon: code"></span>
-          <input id="token" class="uk-input uk-width-medium" type="text" placeholder="Token de verificare"/>
+          <input id="token" class="uk-input uk-width-medium" type="password" placeholder="Token de verificare"/>
         </div>
 
         <button class="send uk-button uk-button-danger" type="submit" id="sign_up" style="margin-top:30px;">Depuneti Cerere</button>
         <button class="send uk-button uk-button-primary" type="submit" id="sign_up_go_back">Pasul Anterior</button>
 
-        <div id="status"></div>
+        <div class="status" style="margin-top: 20px;"></div>
 
-      </div>
+      </form>
 
     </div>
 

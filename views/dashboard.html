@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, maximum-scale=1.0, initial-scale=0.75">
-    <title>Recupero  - Dashboard</title>
+    <title>Alerto - Dashboard</title>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -92,13 +92,14 @@
 
       <div id="content">
 
-        <div class="uk-search uk-search-default searchContainer" uk-scrollspy="cls:uk-animation-slide-top">
+        <h1 class="uk-text-center uk-margin-large-top uk-margin-large-bottom">Bun venit!<br>Puteti folosi bara de mai jos pentru a cauta companii!</h1>
+        <form class="uk-search uk-search-default searchContainer" uk-scrollspy="cls:uk-animation-slide-top" action="javascript:void(0);">
           <span uk-search-icon></span>
           <input id="searchInput" class="uk-search-input searchBar" type="search" placeholder="Cautati rau-platnici dupa nume sau CUI">
           <button id="searchCompany" class="searchButton uk-button uk-button-primary">Cauta</button>
-        </div>
+        </form>
         <div class="boxContent">
-          <div class="box uk-card uk-card-body uk-card-default dashBadcompanyList" uk-scrollspy="cls:uk-animation-slide-bottom">
+<!--           <div class="box uk-card uk-card-body uk-card-default dashBadcompanyList" uk-scrollspy="cls:uk-animation-slide-bottom">
             <div class="uk-card-title">
               Reclamatii noi
             </div>
@@ -137,8 +138,8 @@
                 <td>174563</td>
               </tr>
             </table>
-          </div>
-          <div class="box uk-card uk-card-body uk-card-default accountInfo" uk-scrollspy="cls:uk-animation-slide-bottom">
+          </div> -->
+          <div class="box uk-card uk-card-body uk-card-default accountInfo uk-margin-medium-top" uk-scrollspy="cls:uk-animation-slide-bottom">
             <div class="uk-card-title">
               Informatii despre cont
             </div>
@@ -146,13 +147,19 @@
             <div class="dashInfo">
               <div class="dashPersonalInfo">
                 <div class="dashPersonalInfoName">
-                  Firma Generala SRL
+                  Numele Companiei: Atria SRL
                 </div>
                 <div class="dashPersonalCUI">
-                  37465734
+                  CUI: 674544760
                 </div>
                 <div class="dashPersonalAddress">
-                  Bucuresti, Str. Generalilor nr. 72
+                  Adresa: Bucuresti, Str. Locotenentilor nr. 35
+                </div>
+                <div class="dashPersonalPhone">
+                  Numar de telefon: 0736453643
+                </div>
+                <div class="dashPersonalCAEN">
+                  CAEN: 3847
                 </div>
               </div>
             </div>
@@ -185,7 +192,7 @@
 
                 <div class="uk-inline">
                   <span class="uk-form-icon" uk-icon="icon: social"></span>
-                  <input id="numeReclamat" class="uk-input uk-width-large" type="text" placeholder="Introduceti CUI-ul debitorului"/>
+                  <input id="numeReclamat" class="uk-input uk-width-large" type="text" placeholder="Introduceti denumirea debitorului"/>
                 </div>
 
                 <div class="uk-inline">
@@ -212,7 +219,7 @@
                   </div>
                 </div>
 
-                <button class="send uk-button uk-button-danger" type="submit" id="" style="margin-top:30px;">Reclamati compania</button>
+                <button class="send uk-button uk-button-danger" type="submit" id="send_reclamatie" style="margin-top:30px;">Reclamati compania</button>
               </form>
 
               <div id="statusManual"></div>
@@ -228,11 +235,17 @@
               <h4>Selectati fisierul excel din care sa incarcati rau-platnicii</h4>
               <div class="excel-upload uk-placeholder uk-text-center">
                 <div uk-form-custom>
-                  <input type="file">
+                  <form id="uploadExcelForm" enctype="multipart/form-data" method="post">
+                    <input id="file" name="file" type="file">
+                  </form>
                   <div uk-icon="icon: cloud-upload; ratio:2" style="margin-bottom:10px;"></div>
                   <div class="uk-text-middle">Dati click si selectati sau trageti peste dreptunghi excel-ul cu rau-platnicii</div>
                 </div>
               </div>
+                                <form id="test2" enctype="multipart/form-data" action="javascript:void(0);" method="post">
+    <input id="file2" name="file" type="file" />
+    <input id="test2btn" type="submit"/>
+</form>
               <progress id="progressbar" class="uk-progress" value="0" max="100" hidden></progress>
 
               <div id="statusAuto"></div>

@@ -24,6 +24,7 @@ html {
 }
 body {
   min-height: 100%;
+  overflow:hidden;
 }
 body{
   background-color: $cloudwhite;
@@ -257,4 +258,8 @@ a:hover{
 
 .insideBox>.radioBox>.uk-form-label{
   font-size:18px;
+}
+
+.finishedLoading{
+  display:none;
 }

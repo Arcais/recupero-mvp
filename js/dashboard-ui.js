@@ -3,8 +3,13 @@
     var bar = $("#progressbar")[0];
 
     UIkit.upload('.excel-upload', {
-        url: '',
-        multiple: true,
+        url: '/upload/excel/',
+        multiple: false,
+        allow: '*.(xlsx|xls)',
+        method: 'POST',
+        headers: [
+            'Content-Type: multipart/form-data'
+        ],
         beforeSend: function() { console.log('beforeSend', arguments); },
         beforeAll: function() { console.log('beforeAll', arguments); },
         load: function() { console.log('load', arguments); },
@@ -32,17 +37,97 @@
                 bar.setAttribute('hidden', 'hidden');
             }, 1000);
             $("#statusAuto").html("Upload-ul a fost trimis catre server.<br>Dece excel-ul a fost acceptat, platforma se va actualiza in maxim cateva minute.");
+            // $("#uploadExcelForm").submit();
+
+            // var form = $("#uploadExcelForm")[0];
+            console.log($("#file")[0]);
+            console.log($("#file")[0].files);
+            console.log($("#file2")[0].files);
+            // console.log(new FormData($("#test2")));
+            // var myForm = document.getElementById('#test2');
+            // var formData = new FormData(myForm);
+            // console.log(formData);
+            // console.log(form);
+            // var data = new FormData(form);
+            // console.log(data);
+            // // $("#uploadExcelForm").submit();
+            // $.ajax({
+            //     type: "POST",
+            //     enctype: 'multipart/form-data',
+            //     url: "/upload/excel/",
+            //     data: $("#file2")[0].files,
+            //     processData: false,
+            //     contentType: false,
+            //     cache: false,
+            //     timeout: 600000,
+            //     success: function (data) {
+
+            //         console.log("SUCCESS : ", data);
+
+            //     },
+            //     error: function (e) {
+
+            //         console.log("ERROR : ", e);
+
+            //     }
+            // });
+
         }
     });
     
 })(jQuery);
 
+$("#test2btn").on('click',function(){
+
+    var file = $("#file2")[0].files[0];
+
+    var fd2 = new FormData();
+
+    fd2.append('file', file);
+
+    $.ajax({
+        type: "POST",
+        enctype: 'multipart/form-data',
+        url: "/upload/excel/",
+        data: fd2,
+        processData: false,
+        contentType: false,
+        cache: false,
+        timeout: 600000,
+        success: function (data) {
+            console.log("SUCCESS : ", data);
+        },
+        error: function (e) {
+            console.log("ERROR : ", e);
+        }
+    });
+
+});
+
 $("#searchCompany").on('click', function(){
 
     var searchCompanyTag = $("#searchInput").val();
+    searchCompanyTag = searchCompanyTag.replace(/ /g,'-');
 
     if(searchCompanyTag&&searchCompanyTag!=''&&searchCompanyTag!=""){
         window.location.href="/search/"+searchCompanyTag;
     }
 
+});
+
+$("#send_reclamatie").on('click', function(){
+
+var preparedJSON = {
+        cui: $("#cuiReclamat").val(),
+        nume: $("#numeReclamat").val(),
+        idFactura: $("#idFactura").val(),
+        amount: $("#valoare").val(),
+        date: $("#data").val(),
+      }
+      //***login account***
+      $.post( "/report", preparedJSON, function( res ) {
+
+          $("#statusManual").html(res);
+
+      });  
 });

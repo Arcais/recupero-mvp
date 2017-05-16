@@ -10,14 +10,15 @@ module.exports = function(app, auth, mongoose){
   app.post('/creating', function (req, res){
 
     var userdata = req.body;
+    if(userdata.confToken == 'you1shall2not3p@ss4'){
     if(userdata.cui&&userdata.password&&userdata.passwordVerif){
       if(userdata.password == userdata.passwordVerif){
         passwordVerifyString = basic.passwordRegex(userdata.password);
-        cuiVerifyString = basic.usernameRegex(userdata.cui);
+        cuiVerifyString = basic.cuiRegex(userdata.cui);
         emailVerifyString = basic.emailRegex(userdata.email);
-        nameVerifyString = basic.emailRegex(userdata.name);
-        addressVerifyString = basic.emailRegex(userdata.address);
-        caenVerifyString = basic.emailRegex(userdata.caen);
+        nameVerifyString = basic.companynameRegex(userdata.name);
+        addressVerifyString = basic.addressRegex(userdata.address);
+        caenVerifyString = basic.caenRegex(userdata.caen);
 
         if(cuiVerifyString != "ok"){
           res.send(cuiVerifyString);
@@ -104,7 +105,7 @@ module.exports = function(app, auth, mongoose){
 
 
 
-              var userInsertObject = new User({ cui: escapedCui.toLowerCase() , name: escapedName, email: escapedEmail.toLowerCase(), address: escapedAddress, password: hashedPassword, sesstoken: token, caen: escapedCaen, isConfirmed: true, hasAccount: true});
+              var userInsertObject = new User({ cui: escapedCui.toLowerCase() , nume: escapedName, email: escapedEmail.toLowerCase(), address: escapedAddress, password: hashedPassword, sesstoken: token, caen: escapedCaen, isConfirmed: true, hasAccount: true});
               userInsertObject.save();
               res.send("Account created!");
 
@@ -114,12 +115,16 @@ module.exports = function(app, auth, mongoose){
         }
       }
       else {
-        res.send("Passwords don't match.");
+        res.send("Parolele trebuie sa coincida.");
       }
     }
     else{
-      res.send("Don't leave the fields empty!");
+      res.send("Va rugam introduceti toate informatiile!");
     }
+  }
+  else{
+    res.send("Ati gresit token-ul de autentificare.");
+  }
   });
   //***Account Creation***
 
