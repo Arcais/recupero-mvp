@@ -171,7 +171,7 @@ a:hover{
 
 .boxContent{
   width:100%;
-  @include flexbox("rw","sa","c");
+  @include flexbox("rw","sa","fs");
 }
 
 .box{
@@ -270,4 +270,47 @@ a:hover{
 
 .finishedLoading{
   display:none;
+}
+
+.question{
+  font-size:22px;
+  margin-top:40px;
+  color:#111;
+}
+
+.infoCard>a>h4{
+  color:$blueprimarybtn;
+}
+.infoCard>a>h4:hover{
+  color:$blueprimarybtnshade;
+}
+
+.answer{
+  border: 1px solid #e5e5e5;
+  border-radius: 3px;
+  padding:20px;
+  font-size:18px;
+  margin-top:10px;
+  margin-bottom:60px;
+  color:#000;
+}
+
+#contactBox{
+  @include flexbox("cn","c","c");
+}
+
+#contactBox>.uk-card-title{
+  margin-bottom:30px;
+  margin-top:30px;
+}
+
+#contactBox>.uk-inline,
+#contactBox>.uk-button{
+  margin-top:15px;
+  margin-bottom:15px;
+}
+
+#contactBox>#status{
+  margin-top:20px;
+  height:24px;
 }

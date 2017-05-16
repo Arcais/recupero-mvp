@@ -88,11 +88,69 @@
 
     <div id="contentContainer">
 
-      <div uk-spinner class="uk-position-center" style="height:100px;width:100px;"></div>
+      <div uk-spinner id="spinnerLoader" class="uk-position-center" style="height:100px;width:100px;"></div>
       
       <div id="content">
         
+        <div class="boxContent">
+          <div class="box uk-card uk-card-body uk-card-default cardSplitted uk-margin-medium-top" uk-scrollspy="cls:uk-animation-slide-bottom">
+            <div class="uk-card-title">
+              Manual alerto
+            </div>
+            <hr>
+            <div class="infoCard">
+              <a href="#"><h4 style="margin-top:40px; text-align:center;">Puteti descarca manualul prin a da click aici.</h4></a>
+            </div>
+          </div>
+          <div class="box uk-card uk-card-body uk-card-default cardSplitted uk-margin-medium-top" uk-scrollspy="cls:uk-animation-slide-bottom">
+            <div class="uk-card-title">
+              Descarcare somatie
+            </div>
+            <hr>
+            <div class="infoCard">
+              <a href="#"><h4 style="margin-top:40px; text-align:center;">Puteti descarca somatia prin a da click aici.</h4></a>
+            </div>
+          </div>
+          <div class="box uk-card uk-card-body uk-card-default uk-margin-medium-top uk-width-1-1" uk-scrollspy="cls:uk-animation-slide-bottom">
+            <div class="uk-card-title">
+              Intrebari frecvente
+            </div>
+            <hr>
+            <div class="infoCard">
+              <div class="question">Aceasta este o intrebare de baza numerotata cu 1 deci da sau nu?</div>
+              <div class="answer">Raspunsul in acest caz este sa te duci la x si sa faci y si asa raspundem la intrebare in acest placeholder 1.</div>
+              <div class="question">Aceasta este o intrebare de baza numerotata cu 2 deci da sau nu?</div>
+              <div class="answer">Raspunsul in acest caz este sa te duci la x si sa faci y si asa raspundem la intrebare in acest placeholder 2.</div>
+              <div class="question">Aceasta este o intrebare de baza numerotata cu 3 deci da sau nu?</div>
+              <div class="answer">Raspunsul in acest caz este sa te duci la x si sa faci y si asa raspundem la intrebare in acest placeholder 3.</div>
+            </div>
+          </div>
+          <div class="box uk-card uk-card-body uk-card-default cardSplitted uk-margin-medium-top">
+            <div class="uk-card-title">
+              Termeni si conditii
+            </div>
+            <hr>
+            <div class="infoCard">
+              <a href="#"><h4 style="margin-top:40px; text-align:center;">Puteti descarca termenii si conditiile prin a da click aici.</h4></a>
+            </div>
+          </div>
+          <div class="box uk-card uk-card-body uk-card-default cardSplitted uk-margin-medium-top">
+            <div class="uk-card-title">
+              Contact
+            </div>
+            <hr>
+            <div class="infoCard">
+              <h4 style="margin-top:30px; text-align:center; margin-bottom:30px;">In caz ca aveti sau doriti sa ne dati feedback, nu ezitati sa ne contactati folosind formularul urmator:</h4>
+              <form action="javascript:void(0);" id="contactBox">
+                <textarea rows="5" class="uk-textarea" placeholder="Introduceti intrebarile sau feedback-ul dumneavoastra aici."></textarea>
+                <button class="uk-button uk-button-primary" type="submit" id="sendMail">Trimite</button>
+              </form>
+            </div>
+          </div>
+        </div>
+
       </div>
+
     </div>
 
     <div id="loadCompanies" class="uk-modal-container" uk-modal="center: true">
@@ -118,7 +176,7 @@
 
                 <div class="uk-inline">
                   <span class="uk-form-icon" uk-icon="icon: social"></span>
-                  <input id="numeReclamat" class="uk-input uk-width-large" type="text" placeholder="Introduceti CUI-ul debitorului"/>
+                  <input id="numeReclamat" class="uk-input uk-width-large" type="text" placeholder="Introduceti denumirea debitorului"/>
                 </div>
 
                 <div class="uk-inline">
@@ -145,7 +203,7 @@
                   </div>
                 </div>
 
-                <button class="send uk-button uk-button-danger" type="submit" id="" style="margin-top:30px;">Reclamati compania</button>
+                <button class="send uk-button uk-button-danger" type="submit" id="send_reclamatie" style="margin-top:30px;">Reclamati compania</button>
               </form>
 
               <div id="statusManual"></div>
@@ -159,13 +217,19 @@
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras nunc dui, varius vitae ullamcorper aliquam, placerat id sapien. Nullam a porttitor nulla. Morbi ullamcorper, justo sed convallis hendrerit, erat urna congue libero, ut volutpat nibh enim id ex. Nulla facilisi. Mauris congue diam vel magna vulputate sollicitudin. Mauris justo dui, laoreet sed purus nec, iaculis volutpat elit. Vivamus non varius massa, eu ullamcorper lacus.
               </div>
               <h4>Selectati fisierul excel din care sa incarcati rau-platnicii</h4>
-              <div class="excel-upload uk-placeholder uk-text-center">
+<!--               <div class="excel-upload uk-placeholder uk-text-center">
                 <div uk-form-custom>
-                  <input type="file">
+                  <form id="uploadExcelForm" enctype="multipart/form-data" method="post">
+                    <input id="file" name="file" type="file">
+                  </form>
                   <div uk-icon="icon: cloud-upload; ratio:2" style="margin-bottom:10px;"></div>
                   <div class="uk-text-middle">Dati click si selectati sau trageti peste dreptunghi excel-ul cu rau-platnicii</div>
                 </div>
-              </div>
+              </div> -->
+              <form id="test2" enctype="multipart/form-data" action="javascript:void(0);" method="post">
+                  <input id="file2" name="file" type="file" />
+                  <input id="test2btn" type="submit"/>
+              </form>
               <progress id="progressbar" class="uk-progress" value="0" max="100" hidden></progress>
 
               <div id="statusAuto"></div>
