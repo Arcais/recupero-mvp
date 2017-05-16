@@ -227,6 +227,22 @@ module.exports = function(app, auth, mongoose){
 
   });
 
+  //add auth to this
+  app.get('*/rest/getSelfInfo', function(req,res){
+    
+    Company.findOne( { email: req.cookies.username.toLowerCase() } , function(err, result){
+
+      if(!err && result){
+        res.send(result);
+      }
+      else{
+        res.send("No results found");
+      }
+
+    });
+
+  });
+
 //Object format for post
 //{
 //cui

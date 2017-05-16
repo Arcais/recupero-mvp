@@ -8,6 +8,8 @@ var companySchema = new mongoose.Schema({
   hasAccount: Boolean, //Daca asta ie 1 inseamna ca are parola si e-mail ptca s-a inregistrat
   isConfirmed: Boolean,
   caen: String,
+  phone: String,
+  personalName: String,
   password:String,
   subscribedTo: [String],
   sesstoken: {

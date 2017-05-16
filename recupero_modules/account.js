@@ -17,6 +17,8 @@ module.exports = function(app, auth, mongoose){
         cuiVerifyString = basic.cuiRegex(userdata.cui);
         emailVerifyString = basic.emailRegex(userdata.email);
         nameVerifyString = basic.companynameRegex(userdata.name);
+        personalNameVerifyString = basic.personalNameRegex(userdata.personalName);
+        phoneVerifyString = basic.phoneRegex(userdata.number);
         addressVerifyString = basic.addressRegex(userdata.address);
         caenVerifyString = basic.caenRegex(userdata.caen);
 
@@ -38,6 +40,12 @@ module.exports = function(app, auth, mongoose){
         else if(caenVerifyString != "ok"){
                 res.send(caenVerifyString);
         }
+        else if(personalNameVerifyString != "ok"){
+                res.send(personalNameVerifyString);
+        }
+        else if(phoneVerifyString != "ok"){
+                res.send(phoneVerifyString);
+        }
         else {
           userdata.password = userdata.password.trim().replace(/\\(.)/mg); //Impossible to have "\" but better safe than sorry.
           var salt = bcrypt.genSaltSync(10);
@@ -47,6 +55,8 @@ module.exports = function(app, auth, mongoose){
           var escapedName = basic.escapeRegExp(userdata.name);
           var escapedAddress = basic.escapeRegExp(userdata.address);
           var escapedCaen = basic.escapeRegExp(userdata.caen);
+          var escapedPersonalName = basic.escapeRegExp(userdata.personalName);
+          var escapedPhone = basic.escapeRegExp(userdata.number);
 
           User.find({cui: escapedCui.toLowerCase() },function(err,data){
             if(err){
@@ -61,6 +71,8 @@ module.exports = function(app, auth, mongoose){
                   result.address = escapedAddress;
                   result.password = hashedPassword;
                   result.caen = escapedCaen;
+                  result.personalName = escapedPersonalName;
+                  result.phone = escapedPhone;
                   result.isConfirmed = true;
                   result.hasAccount = true;
 
@@ -105,7 +117,7 @@ module.exports = function(app, auth, mongoose){
 
 
 
-              var userInsertObject = new User({ cui: escapedCui.toLowerCase() , nume: escapedName, email: escapedEmail.toLowerCase(), address: escapedAddress, password: hashedPassword, sesstoken: token, caen: escapedCaen, isConfirmed: true, hasAccount: true});
+              var userInsertObject = new User({ cui: escapedCui.toLowerCase() , nume: escapedName, email: escapedEmail.toLowerCase(), address: escapedAddress, password: hashedPassword, sesstoken: token, caen: escapedCaen, isConfirmed: true, hasAccount: true, personalName: escapedPersonalName, phone: escapedPhone});
               userInsertObject.save();
               res.send("Account created!");
 
