@@ -1,4 +1,4 @@
-$("#spinnerLoader").addClass("finishedLoading");
+
 window.onload = function () {
   const app = new Vue({
 

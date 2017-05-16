@@ -7,6 +7,7 @@ $("#sign_up_go_back").on('click', function(){
 
 $("#sign_up").on('click', function(){
         var preparedJSON = {
+          personalName :  $("#name").val() ,
           name :          $("#denumcomp").val() ,
           password :      $("#pass1").val() ,
           email :         $("#email").val() ,

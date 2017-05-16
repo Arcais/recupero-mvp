@@ -56,8 +56,6 @@ module.exports.companynameRegex = function(username){
   return("ok");
 }
 
-
-
 module.exports.usernameRegex = function(username){
   if(username.length < 4){//put <4, but I wanna test
     return("Nume de utilizator prea scurt!");
@@ -81,6 +79,47 @@ module.exports.emailRegex = function(username){
   // else if(username.search(/[^a-zA-Z0-9\_\.]/) != -1){
   //   return("In your username you can only use letters, numbers and the next set of symbols:\"., _\". ");
   // }
+  return("ok");
+}
+
+
+module.exports.passwordRegex = function(password){
+  if(password.length < 6){//put <6, but I wanna test
+    return("Parola este prea scurta!");
+  }
+  else if(password.length > 50){
+    return("Parola este prea lunga!");
+  }
+  else if(password.search(/[^a-zA-Z0-9\!\@\#\$\*\_\+\.]/) != -1){
+    return("In parola puteti folosi litere, numere si urmatoarele simboluri:\"!, @, #, $, *, ., +, _\". ");
+  }
+  return("ok");
+}
+
+
+module.exports.phoneRegex = function(password){
+  if(password.length < 10){//put <6, but I wanna test
+    return("Numarul de telefon trebuie sa aiba 10 cifre!");
+  }
+  else if(password.length > 10){
+    return("Numarul de telefon trebuie sa aiba 10 cifre!");
+  }
+  else if(password.search(/[^0-9]/) != -1){
+    return("In numarul de telefon puteti folosi numai cifre.");
+  }
+  return("ok");
+}
+
+module.exports.personalNameRegex = function(username){
+  if(username.length < 4){//put <4, but I wanna test
+    return("Nume personal prea scurt!");
+  }
+  else if(username.length > 50){
+    return("Nume personal prea lung!");
+  }
+  else if(username.search(/[^a-zA-Z ]/) != -1){
+    return("In numele personal puteti folosi numai litere si spatii.");
+  }
   return("ok");
 }
 
