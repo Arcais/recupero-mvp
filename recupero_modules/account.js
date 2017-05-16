@@ -11,7 +11,7 @@ module.exports = function(app, auth, mongoose){
 
     var userdata = req.body;
     if(userdata.confToken == 'you1shall2not3p@ss4'){
-    if(userdata.cui&&userdata.password&&userdata.passwordVerif){
+    if(userdata.cui&&userdata.password&&userdata.passwordVerif&&userdata.email&&userdata.name&&userdata.address&&userdata.caen){
       if(userdata.password == userdata.passwordVerif){
         passwordVerifyString = basic.passwordRegex(userdata.password);
         cuiVerifyString = basic.cuiRegex(userdata.cui);

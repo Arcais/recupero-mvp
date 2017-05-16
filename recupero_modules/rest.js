@@ -39,8 +39,12 @@ module.exports = function(app, auth, mongoose){
     
     Reclamatie.find({}, function(err, result){
 
-      res.send(result);
-
+      if(!err && result){
+        res.send(basic.safeReclamatie(result));
+      }
+      else{
+        res.send("No results found");
+      }
     });
 
   });
@@ -55,7 +59,7 @@ module.exports = function(app, auth, mongoose){
           Company.where({ email: req.cookies.username }).update({$addToSet: {subscribedTo: req.params.nume}},
                         function(err, result){
                           if(!err && result){
-                          res.send("success");
+                            res.send("success");
                           }
                           else{
                             res.send("err");
@@ -79,9 +83,9 @@ module.exports = function(app, auth, mongoose){
           Company.find({cui: {$in: subs.subscribedTo}}, function(err, result){
 
 
-            res.send(result);
+            res.send(basic.safeCompanie(result));
 
-          }).skip(parseInt(req.params.numar)).limit(10);
+          }).skip(parseInt(req.params.numar-1)*10).limit(10);
 
     })
 
@@ -111,10 +115,14 @@ module.exports = function(app, auth, mongoose){
     stripedName = stripedName.replace(/-/g,' ');
 
     
-    Reclamatie.find( { cuiReclamat: {'$regex': stripedName } }, function(err, result){
+    Reclamatie.find( { cuiReclamat: {'$regex': stripedName, $options:'i' } }, function(err, result){
 
-      res.send(result);
-
+      if(!err && result){
+        res.send(basic.safeReclamatie(result));
+      }
+      else{
+        res.send("No results found");
+      }
     });
 
   });
@@ -124,8 +132,12 @@ module.exports = function(app, auth, mongoose){
     
     Reclamatie.find({$or: [ {cuiReclamat: req.params.nume}, {nume: req.params.nume}]}, function(err, result){
 
-      res.send(result);
-
+      if(!err && result){
+        res.send(basic.safeReclamatie(result));
+      }
+      else{
+        res.send("No results found");
+      }
     });
 
   });
@@ -137,12 +149,17 @@ module.exports = function(app, auth, mongoose){
     var stripedName = req.params.nume;
     stripedName = stripedName.replace(/-/g,' ');
     
-    Reclamatie.find({$or: [ {cuiReclamat: {'$regex': stripedName} }, {reclamat: {'$regex': stripedName} }]}, function(err, result){
+    Reclamatie.find({$or: [ {cuiReclamat: {'$regex': stripedName, $options:'i' } }, {reclamat: {'$regex': stripedName, $options:'i' } }]}, function(err, result){
 
+      if(!err && result){
+        res.send(basic.safeReclamatie(result));
+      }
+      else{
+        res.send("No results found");
+      }
+      //res.send(result);
 
-      res.send(result);
-
-    }).skip(parseInt(req.params.numar)).limit(8);
+    }).skip(parseInt(req.params.numar-1)*8).limit(8);
 
   });
 
@@ -151,7 +168,7 @@ module.exports = function(app, auth, mongoose){
     var stripedName = req.params.nume;
     stripedName = stripedName.replace(/-/g,' ');
 
-    Reclamatie.find({$or: [ {cuiReclamat: {'$regex': stripedName} }, {reclamat: {'$regex': stripedName} }]}, function(err, result){
+    Reclamatie.find({$or: [ {cuiReclamat: {'$regex': stripedName, $options:'i' } }, {reclamat: {'$regex': stripedName, $options:'i' }  }]}, function(err, result){
 
       //Stii de ce e asa?
       //Pentru ca node cand vede un numar, el crede ca tu vrei sa trimiti un status code gen 404 si se buseste ca nu gaseste status code de 3
@@ -171,7 +188,12 @@ module.exports = function(app, auth, mongoose){
     
     Reclamatie.find({$or: [ {cuiReclamant: req.params.nume}, {nume: req.params.nume}]}, function(err, result){
 
-      res.send(result);
+      if(!err && result){
+        res.send(basic.safeReclamatie(result));
+      }
+      else{
+        res.send("No results found");
+      }
 
     });
 
@@ -194,7 +216,12 @@ module.exports = function(app, auth, mongoose){
     
     Reclamatie.find({}, function(err, result){
 
-      res.send(result);
+      if(!err && result){
+        res.send(basic.safeReclamatie(result));
+      }
+      else{
+        res.send("No results found");
+      }
 
     });
 
