@@ -119,7 +119,7 @@ module.exports = function(app, auth, mongoose){
 
 
 
-              var userInsertObject = new User({ cui: escapedCui.toLowerCase() , nume: escapedName, email: escapedEmail.toLowerCase(), address: escapedAddress, password: hashedPassword, sesstoken: token, caen: escapedCaen, isConfirmed: true, hasAccount: true, personalName: escapedPersonalName, phone: escapedPhone});
+              var userInsertObject = new User({_id: escapedCui.toLowerCase(), cui: escapedCui.toLowerCase() , nume: escapedName, email: escapedEmail.toLowerCase(), address: escapedAddress, password: hashedPassword, sesstoken: token, caen: escapedCaen, isConfirmed: true, hasAccount: true, personalName: escapedPersonalName, phone: escapedPhone});
 
               userInsertObject.save();
               res.send("Account created!");

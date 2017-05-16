@@ -7,7 +7,7 @@ module.exports = function(app, auth, mongoose){
   var Reclamatie =  mongoose.model('Reclamatie');
 
 
-  app.get('*/rest/company/:nume', function(req,res){
+  app.get('*/rest/company/:nume', auth.isAuth, function(req,res){
     
     Company.findOne({$or: [{cui: req.params.nume}, {email: req.params.nume}]}, function(err, result){
 
@@ -33,7 +33,7 @@ module.exports = function(app, auth, mongoose){
 
 //this returns all the reclamations that were registered by ALL companies
 
-  app.get('*/rest/reclamatii', function(req,res){
+  app.get('*/rest/reclamatii', auth.isAuth, function(req,res){
 
 
     
@@ -50,7 +50,7 @@ module.exports = function(app, auth, mongoose){
   });
 
 
-  app.get('*/rest/subscribe/:nume', function(req,res){
+  app.get('*/rest/subscribe/:nume', auth.isAuth, function(req,res){
 
     Company.findOne({cui: req.params.nume}, function(err, resu){
 
@@ -75,7 +75,7 @@ module.exports = function(app, auth, mongoose){
 
   });
 
-  app.get('*/rest/getSubscribers/:numar', function(req,res){
+  app.get('*/rest/getSubscribers/:numar', auth.isAuth, function(req,res){
 
     Company.findOne({ email: req.cookies.username }, function(err, subs){
 
@@ -92,7 +92,7 @@ module.exports = function(app, auth, mongoose){
 
   })
 
-  app.get('*/rest/getSubscriberNumber/', function(req,res){
+  app.get('*/rest/getSubscriberNumber/', auth.isAuth, function(req,res){
 
     Company.findOne({ email: req.cookies.username }, function(err, subs){
 
@@ -109,7 +109,7 @@ module.exports = function(app, auth, mongoose){
 
   })
 
-  app.get('*/rest/reclamatii/:nume', function(req,res){
+  app.get('*/rest/reclamatii/:nume', auth.isAuth, function(req,res){
 
     var stripedName = req.params.nume;
     stripedName = stripedName.replace(/-/g,' ');
@@ -127,7 +127,7 @@ module.exports = function(app, auth, mongoose){
 
   });
 
-  app.get('*/rest/reclamatii_strict/:nume', function(req,res){
+  app.get('*/rest/reclamatii_strict/:nume', auth.isAuth, function(req,res){
 
     
     Reclamatie.find({$or: [ {cuiReclamat: req.params.nume}, {nume: req.params.nume}]}, function(err, result){
@@ -144,7 +144,7 @@ module.exports = function(app, auth, mongoose){
 
 
   //Cauta reclamatiile pentru search (in functie de reclamat)
-  app.get('*/rest/reclamatii/:nume/:numar', function(req,res){
+  app.get('*/rest/reclamatii/:nume/:numar', auth.isAuth, function(req,res){
 
     var stripedName = req.params.nume;
     stripedName = stripedName.replace(/-/g,' ');
@@ -163,7 +163,7 @@ module.exports = function(app, auth, mongoose){
 
   });
 
-  app.get('*/rest/numarReclamatii/:nume', function(req,res){
+  app.get('*/rest/numarReclamatii/:nume', auth.isAuth, function(req,res){
 
     var stripedName = req.params.nume;
     stripedName = stripedName.replace(/-/g,' ');
@@ -183,7 +183,7 @@ module.exports = function(app, auth, mongoose){
 
 
   //Cauta reclamatiile pentru manage (in functie de reclamant)
-  app.get('*/rest/reclamant/:nume', function(req,res){
+  app.get('*/rest/reclamant/:nume', auth.isAuth, function(req,res){
 
     
     Reclamatie.find({$or: [ {cuiReclamant: req.params.nume}, {nume: req.params.nume}]}, function(err, result){
@@ -210,7 +210,7 @@ module.exports = function(app, auth, mongoose){
 
   // });
 
-  app.get('*/rest/test', function(req,res){
+  app.get('*/rest/test', auth.isAuth, function(req,res){
 
 
     
@@ -228,7 +228,7 @@ module.exports = function(app, auth, mongoose){
   });
 
   //add auth to this
-  app.get('*/rest/getSelfInfo', function(req,res){
+  app.get('*/rest/getSelfInfo', auth.isAuth, function(req,res){
     
     Company.findOne( { email: req.cookies.username.toLowerCase() } , function(err, result){
 
@@ -251,7 +251,7 @@ module.exports = function(app, auth, mongoose){
 //amount
 //dateRegistered
 //}
-app.post('/report', function (req, res){                    
+app.post('/report', auth.isAuth, function (req, res){                    
 
 
   function convertDotsToDate(dateStr) {
@@ -284,7 +284,8 @@ app.post('/report', function (req, res){
 
                     console.log(2);
 
-                var temp = new Company({cui: userdata.cui,
+                var temp = new Company({_id: userdata.cui,
+                                        cui: userdata.cui,
                                         nume: userdata.nume,
                                         hasAccount: false});
                 temp.save();

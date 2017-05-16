@@ -2,7 +2,8 @@ var mongoose = require('mongoose');
 
 //**Users**
 var companySchema = new mongoose.Schema({
-  cui: String,
+  _id: Number,
+  cui: {type: Number, required: true},
   nume: String,
   address: String,
   hasAccount: Boolean, //Daca asta ie 1 inseamna ca are parola si e-mail ptca s-a inregistrat
