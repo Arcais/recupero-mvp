@@ -190,7 +190,7 @@ module.exports.safeReclamatie = function(result){
 
       var safeResult = result.map(function(a){
         return {  idFactura: a.idFactura, caenReclamant: a.caenReclamant, reclamat: a.reclamat,
-                  cuiReclamat: a.cuiReclamat, amountRange: a.amountRange, dateRegistered: a.dateRegistered, fromExcel: a.fromExcel,
+                  cuiReclamat: a.cuiReclamat, amountRange: module.exports.getAmountRange(a.amount), dateRegistered: a.dateRegistered, fromExcel: a.fromExcel,
                   amountPaid: a.amountPaid }
       });
       return safeResult;
