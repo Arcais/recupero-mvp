@@ -205,15 +205,51 @@ module.exports = function(app, auth, mongoose){
   //Cauta reclamatiile pentru manage (in functie de reclamant)
   app.get('*/rest/reclamant/:nume', auth.isAuth, function(req,res){
 
+    var stripedName = req.params.nume;
+    stripedName = stripedName.replace(/-/g,' ');
+
     
-    Reclamatie.find({$or: [ {cuiReclamant: req.params.nume}, {nume: req.params.nume}]}, function(err, result){
+    Reclamatie.find({$or: [ {cuiReclamant: stripedName}, {nume: stripedName}]}, function(err, result){
 
       if(!err && result){
-        res.send(basic.safeReclamatie(result));
+        res.send(result);
       }
       else{
         res.send("No results found");
       }
+
+    });
+
+  });
+
+
+  //Cauta reclamatiile pentru search (in functie de reclamat)
+  app.get('*/rest/reclamant/:nume/:numar', auth.isAuth, function(req,res){
+
+    Reclamatie.find({ cuiReclamant:  req.params.nume  }, function(err, result){
+
+      if(!err && result){
+        res.send(result);
+      }
+      else{
+        res.send("No results found");
+      }
+      //res.send(result);
+
+    }).skip(parseInt(req.params.numar-1)*8).limit(8);
+
+  });
+
+  app.get('*/rest/numarReclamant/:nume', auth.isAuth, function(req,res){
+
+    Reclamatie.find({ cuiReclamant:  req.params.nume  }, function(err, result){
+
+      //Stii de ce e asa?
+      //Pentru ca node cand vede un numar, el crede ca tu vrei sa trimiti un status code gen 404 si se buseste ca nu gaseste status code de 3
+      //Thanks node :)
+      var preparedArray = [];
+      preparedArray.push(result.length);
+      res.send(preparedArray);
 
     });
 
