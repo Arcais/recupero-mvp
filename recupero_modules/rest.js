@@ -75,6 +75,27 @@ module.exports = function(app, auth, mongoose){
 
   });
 
+
+  app.get('*/rest/getFeed/:numar', auth.isAuth, function(req,res){
+
+    Company.findOne({ email: req.cookies.username }, function(err, subs){
+
+
+          Reclamatie.find({cuiReclamat: {$in: subs.subscribedTo}}, function(err, result){
+
+
+            res.send(basic.safeReclamatie(result));
+
+          }).skip(parseInt(req.params.numar-1)*10).limit(10);
+
+    })
+
+
+  })
+
+
+
+
   app.get('*/rest/getSubscribers/:numar', auth.isAuth, function(req,res){
 
     Company.findOne({ email: req.cookies.username }, function(err, subs){
