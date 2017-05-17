@@ -16,6 +16,10 @@ app.get('/dashboard', auth.isAuth, function (req, res){
   res.sendFile(dirname + "/views/dashboard.html");
 });
 
+app.get('/changepass', auth.isAuth, function (req, res){
+  res.sendFile(dirname + "/views/changepass.html");
+});
+
 app.get('/manage', auth.isAuth, function (req, res){
   res.sendFile(dirname + "/views/manage.html");
 });

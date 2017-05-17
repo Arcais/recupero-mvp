@@ -197,6 +197,45 @@ module.exports = function(app, auth, mongoose){
   //***Account Sessions***
 
 
+  app.post('/changePassword', function (req, res){
+
+    var userdata = req.body;
+    var cookie_data = req.cookies; 
+    
+    if(userdata.verify1 != userdata.verify2 && userdata.new1 != userdata.new2){
+      res.send("passwords don't match");
+      return;
+    }
+    else if(userdata.new1 && cookie_data.username){ //Fix this security issue
+
+      var escapedUsername = basic.escapeRegExp(cookie_data.username);
+
+      User.findOne({ email: cookie_data.username.toLowerCase(), sesstoken: req.cookies.sesid },function(err,data){
+        if(err){
+          console.log(err);
+        }
+        else {
+          bcrypt.compare(userdata.verify1, data.password, function(err, pwdcheck){
+            //console.log('pwdcheck' + pwdcheck);
+            if(pwdcheck){
+
+              userdata.new1 = userdata.new1.trim().replace(/\\(.)/mg); //Impossible to have "\" but better safe than sorry.
+              var salt = bcrypt.genSaltSync(10);
+              var hashedPassword = bcrypt.hashSync(userdata.new1, salt);
+              data.password = hashedPassword;
+              res.send("success");
+              data.save();
+
+            }
+          });
+        }
+      });
+    }
+    else{
+      res.send("Not Same Account");
+    }
+  });
+
 
 
 };

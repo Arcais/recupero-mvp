@@ -83,8 +83,7 @@ module.exports = function(app, auth, mongoose){
 
           Reclamatie.find({cuiReclamat: {$in: subs.subscribedTo}}, function(err, result){
 
-
-            res.send(basic.safeReclamatie(result));
+                res.send(basic.safeReclamatie(result));
 
           }).skip(parseInt(req.params.numar-1)*10).limit(10);
 
