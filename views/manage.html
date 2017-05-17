@@ -88,109 +88,52 @@
 
     <div id="contentContainer">
 
-      <div uk-spinner class="uk-position-center" style="height:100px;width:100px;"></div>
+      <div uk-spinner id="spinnerLoader" class="uk-position-center" style="height:100px;width:100px;"></div>
       
       <div id="content">
 
-        <div class="box uk-card uk-card-body uk-card-default dashBadcompanyList" uk-scrollspy="cls:uk-animation-slide-bottom">
+        <div id="vueApp" class="box uk-card uk-card-body uk-card-default dashBadcompanyList" uk-scrollspy="cls:uk-animation-fade-fast">
           <div class="uk-card-title">
             Reclamatii depuse
           </div>
           <hr>
-          <table class="uk-table uk-table-divider uk-table-hover uk-overflow-auto uk-table-responsive badCompanyTable">
-            <tr>
-              <th>CUI</th>
-              <th>Denumirea companiei</th>
-              <th>Data datoriei</th>
-              <th>Valoarea datoriei</th>
-              <th>CAEN reclamant</th>
-              <th>Adaugat prin excel</th>
-              <th>Suma a fost platita</th>
-            </tr>
-            <tr>
-              <td>33397595</td>
-              <td>Bicycle Courier SRL-D</td>
-              <td>12-03-2006</td>
-              <td>2.500</td>
-              <td>5320</td>
-              <td>Da</td>
-              <td><span uk-icon="icon: check; ratio:1.4" class="uk-icon"></span></td>
-            </tr>
-            <tr>
-              <td>33397595</td>
-              <td>Bicycle Courier SRL-D</td>
-              <td>30-03-2012</td>
-              <td>20.000</td>
-              <td>5320</td>
-              <td>Da</td>
-              <td><span uk-icon="icon: check; ratio:1.4" class="uk-icon"></span></td>
-            </tr>
-            <tr>
-              <td>28367463</td>
-              <td>Cook Accounting SRL</td>
-              <td>30-03-2012</td>
-              <td>5.000</td>
-              <td>4712</td>
-              <td>Nu</td>
-              <td><span uk-icon="icon: check; ratio:1.4" class="uk-icon"></span></td>
-            </tr>
-            <tr>
-              <td>28367463</td>
-              <td>Cook Accounting SRL</td>
-              <td>30-03-2012</td>
-              <td>5.000</td>
-              <td>4712</td>
-              <td>Nu</td>
-              <td><span uk-icon="icon: check; ratio:1.4" class="uk-icon"></span></td>
-            </tr>
-            <tr>
-              <td>28367463</td>
-              <td>Cook Accounting SRL</td>
-              <td>30-03-2012</td>
-              <td>5.000</td>
-              <td>4712</td>
-              <td>Nu</td>
-              <td><span uk-icon="icon: check; ratio:1.4" class="uk-icon"></span></td>
-            </tr>
-            <tr>
-              <td>28367463</td>
-              <td>Cook Accounting SRL</td>
-              <td>30-03-2012</td>
-              <td>5.000</td>
-              <td>4712</td>
-              <td>Nu</td>
-              <td><span uk-icon="icon: check; ratio:1.4" class="uk-icon"></span></td>
-            </tr>
-            <tr>
-              <td>28367463</td>
-              <td>Cook Accounting SRL</td>
-              <td>30-03-2012</td>
-              <td>5.000</td>
-              <td>4712</td>
-              <td>Nu</td>
-              <td><span uk-icon="icon: check; ratio:1.4" class="uk-icon"></span></td>
-            </tr>
-            <tr>
-              <td>28367463</td>
-              <td>Cook Accounting SRL</td>
-              <td>30-03-2012</td>
-              <td>5.000</td>
-              <td>4712</td>
-              <td>Nu</td>
-              <td><span uk-icon="icon: check; ratio:1.4" class="uk-icon"></span></td>
-            </tr>
-            <tr>
-          </table>
+          <h3 v-if="companiesLoaded.length==0" style="text-align:center;margin-top:60px;margin-bottom:40px;">
+            Nu ati inregistrat inca companii.
+          </h3>
+          <div v-if="companiesLoaded.length">
+            <table class="uk-table uk-table-divider uk-table-hover uk-overflow-auto uk-table-responsive badCompanyTable">
+              <tr>
+                <th>ID-ul Facturii</th>
+                <th>CUI</th>
+                <th>Denumirea companiei</th>
+                <th>Data datoriei</th>
+                <th>Valoarea datoriei</th>
+                <th>Incarcat prin Excel</th>
+                <th>Suma platita integral</th>
+              </tr>
+              <tr v-for="companie in companiesLoaded">
+                <td>{{companie.idFactura}}</td>
+                <td>{{companie.cuiReclamat}}</td>
+                <td>{{companie.reclamat}}</td>
+                <td>{{companie.dateRegistered}}</td>
+                <td>{{companie.amount}} RON</td>
+                <td><span v-if="companie.fromExcel">Da</span><span v-if="!companie.fromExcel">Nu</span></td>
+                <td><span v-if="companie.amountPaid">Da</span><span v-if="!companie.amountPaid">Nu</span></td>
+              </tr>
+            </table>
 
-          <ul class="uk-pagination uk-flex-center" uk-margin>
-              <li><a href="#"><span uk-pagination-previous></span></a></li>
-              <li class="uk-disabled"><span>...</span></li>
-              <li><a href="#">6</a></li>
-              <li class="uk-active"><span>7</span></li>
-              <li><a href="#">8</a></li>
-              <li class="uk-disabled"><span>...</span></li>
-              <li><a href="#"><span uk-pagination-next></span></a></li>
-          </ul>
+            <ul class="uk-pagination uk-flex-center" uk-margin>
+                <li v-if="currentPage>1"><a v-bind:href="'/search/'+currentSearchLink+'/'+(currentPage-1)"><span uk-pagination-previous></span></a></li>
+                <li v-if="currentPage>2"><a v-bind:href="'/search/'+currentSearchLink+'/1'">1</a></li>
+                <li class="uk-disabled" v-if="currentPage>3"><span>...</span></li>
+                <li v-if="currentPage>1"><a v-bind:href="'/search/'+currentSearchLink+'/'+(currentPage-1)">{{currentPage-1}}</a></li>
+                <li class="uk-active"><span>{{currentPage}}</span></li>
+                <li v-if="currentPage<companiesFinalPage"><a v-bind:href="'/search/'+currentSearchLink+'/'+(currentPage+1)">{{currentPage+1}}</a></li>
+                <li class="uk-disabled" v-if="currentPage<(companiesFinalPage-2)"><span>...</span></li>
+                <li v-if="currentPage<(companiesFinalPage-1)"><a v-bind:href="'/search/'+currentSearchLink+'/'+companiesFinalPage">{{companiesFinalPage}}</a></li>
+                <li v-if="currentPage<companiesFinalPage"><a v-bind:href="'/search/'+currentSearchLink+'/'+(currentPage+1)"><span uk-pagination-next></span></a></li>
+            </ul>
+          </div>
 
         </div>
 
@@ -287,6 +230,9 @@
   </div>
 
   <script src="js/dashboard-ui.js"></script>
+  <script src="vue/vue.js"></script>
+  <script src="vue/vue-resource.js"></script>
+  <script src="vue/manage.js"></script>
 
   </body>
 </html>

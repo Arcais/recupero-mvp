@@ -20,8 +20,12 @@ app.get('/changepass', auth.isAuth, function (req, res){
   res.sendFile(dirname + "/views/changepass.html");
 });
 
-app.get('/manage', auth.isAuth, function (req, res){
+app.get('/manage/:page', function (req, res){
   res.sendFile(dirname + "/views/manage.html");
+});
+
+app.get('/manage', auth.isAuth, function (req, res){
+  res.redirect('/manage/1');
 });
 
 app.get('/search/:companySearch/:page', function (req, res){
