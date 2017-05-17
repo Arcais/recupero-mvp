@@ -68,6 +68,26 @@ $("#reset_password").on('click', function(){
       });
 });
 
+$("#change_password").on('click', function(){
+      var preparedJSON = {
+        verify1: $("#pass1").val(),
+        verify2 : $("#pass2").val(),
+        new1: $("#new1").val(),
+        new2: $("#new2").val()
+      }
+      //***login account***
+      $.post( '/changePassword' , preparedJSON, function( res ) {
+
+          $("#status").html(res);
+          if(res=="success"){ 
+              setTimeout(function(){       
+              window.location.href = ("/");
+            }, 500);
+          }
+      });
+});
+
+
 
 $("#reset").on('click', function(){
       var preparedJSON = {

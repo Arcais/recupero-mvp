@@ -7,20 +7,21 @@ module.exports = function(app, auth, mongoose){
   var User = mongoose.model('Companie');
 
   //***Account Creation***
-  app.post('/creating', function (req, res){
+  app.post('/creating', auth.isNotAuth, function (req, res){
 
     var userdata = req.body;
-    if(userdata.confToken == 'you1shall2not3p@ss4'){
-    if(userdata.cui&&userdata.password&&userdata.passwordVerif&&userdata.email&&userdata.name&&userdata.address&&userdata.caen){
+    if(userdata.cui&&userdata.password&&userdata.passwordVerif&&userdata.email&&userdata.name&&userdata.personalName&&userdata.address&&userdata.caen){
       if(userdata.password == userdata.passwordVerif){
         passwordVerifyString = basic.passwordRegex(userdata.password);
-        cuiVerifyString = basic.cuiRegex(userdata.cui);
+        cuiVerifyString = basic.usernameRegex(userdata.cui);
         emailVerifyString = basic.emailRegex(userdata.email);
+
         nameVerifyString = basic.companynameRegex(userdata.name);
         personalNameVerifyString = basic.personalNameRegex(userdata.personalName);
         phoneVerifyString = basic.phoneRegex(userdata.number);
         addressVerifyString = basic.addressRegex(userdata.address);
         caenVerifyString = basic.caenRegex(userdata.caen);
+
 
         if(cuiVerifyString != "ok"){
           res.send(cuiVerifyString);
@@ -58,11 +59,11 @@ module.exports = function(app, auth, mongoose){
           var escapedPersonalName = basic.escapeRegExp(userdata.personalName);
           var escapedPhone = basic.escapeRegExp(userdata.number);
 
-          User.find({cui: escapedCui.toLowerCase() },function(err,data){
+          User.find({$or: [{cui: escapedCui.toLowerCase()},{ email: escapedEmail }] },function(err,data){
             if(err){
-              console.log(err);
+              res.send('Email sau CUI deja folost');
             }
-            if(data.length!=0){
+            else if(data.length!=0){
               User.findOne({$and: [{cui: escapedCui.toLowerCase()},{ hasAccount:false }] },function(err,result){
                 if(!err && result){
                   result.cui = escapedCui;
@@ -117,7 +118,9 @@ module.exports = function(app, auth, mongoose){
 
 
 
-              var userInsertObject = new User({ cui: escapedCui.toLowerCase() , nume: escapedName, email: escapedEmail.toLowerCase(), address: escapedAddress, password: hashedPassword, sesstoken: token, caen: escapedCaen, isConfirmed: true, hasAccount: true, personalName: escapedPersonalName, phone: escapedPhone});
+
+              var userInsertObject = new User({_id: escapedCui.toLowerCase(), cui: escapedCui.toLowerCase() , nume: escapedName, email: escapedEmail.toLowerCase(), address: escapedAddress, password: hashedPassword, sesstoken: token, caen: escapedCaen, isConfirmed: true, hasAccount: true, personalName: escapedPersonalName, phone: escapedPhone});
+
               userInsertObject.save();
               res.send("Account created!");
 
@@ -127,23 +130,19 @@ module.exports = function(app, auth, mongoose){
         }
       }
       else {
-        res.send("Parolele trebuie sa coincida.");
+        res.send("Passwords don't match.");
       }
     }
     else{
-      res.send("Va rugam introduceti toate informatiile!");
+      res.send("Don't leave the fields empty!");
     }
-  }
-  else{
-    res.send("Ati gresit token-ul de autentificare.");
-  }
   });
   //***Account Creation***
 
 
 
   //***Account Sessions***
-  app.post('/loggingIn', function (req, res){
+  app.post('/loggingIn', auth.isNotAuth, function (req, res){
 
     var userdata=req.body;
 
@@ -197,6 +196,45 @@ module.exports = function(app, auth, mongoose){
   });
   //***Account Sessions***
 
+
+  app.post('/changePassword', function (req, res){
+
+    var userdata = req.body;
+    var cookie_data = req.cookies; 
+    
+    if(userdata.verify1 != userdata.verify2 && userdata.new1 != userdata.new2){
+      res.send("passwords don't match");
+      return;
+    }
+    else if(userdata.new1 && cookie_data.username){ //Fix this security issue
+
+      var escapedUsername = basic.escapeRegExp(cookie_data.username);
+
+      User.findOne({ email: cookie_data.username.toLowerCase(), sesstoken: req.cookies.sesid },function(err,data){
+        if(err){
+          console.log(err);
+        }
+        else {
+          bcrypt.compare(userdata.verify1, data.password, function(err, pwdcheck){
+            //console.log('pwdcheck' + pwdcheck);
+            if(pwdcheck){
+
+              userdata.new1 = userdata.new1.trim().replace(/\\(.)/mg); //Impossible to have "\" but better safe than sorry.
+              var salt = bcrypt.genSaltSync(10);
+              var hashedPassword = bcrypt.hashSync(userdata.new1, salt);
+              data.password = hashedPassword;
+              res.send("success");
+              data.save();
+
+            }
+          });
+        }
+      });
+    }
+    else{
+      res.send("Not Same Account");
+    }
+  });
 
 
 

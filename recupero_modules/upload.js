@@ -36,9 +36,7 @@ module.exports = function(app, auth, mongoose, dirname){
     //***we are making the file a png in base64, it can be anything, but we must tell the system that it's an image***
     var tmp_file = req.file; 
 
-    if (!fs.existsSync(__dirname + "/tmp/")){
-      fs.mkdirSync(__dirname + "/tmp/");
-    }
+
       // fs.writeFile(__dirname + "/tmp/"+cookie_data.username,  tmp_file.path, function(err) {
 
       //   data.file = tmp_file;
@@ -46,12 +44,6 @@ module.exports = function(app, auth, mongoose, dirname){
 
 
 
-          var writestream = fs.createWriteStream(dirname+'/tmp/' + cookie_data.username + '.xlsx');
-          var stream = fs.createReadStream(req.file.path).pipe(writestream);
-
-
-        //***stream the data from the disk***
-          stream.on('close', function(){
 
 
              Company.findOne({email: req.cookies.username}, function(err, result){
@@ -72,7 +64,7 @@ module.exports = function(app, auth, mongoose, dirname){
 
 
                   var json = excelToJson({
-                       sourceFile: dirname+'/tmp/' + cookie_data.username + '.xlsx'
+                       sourceFile: req.file.path
                    });
 
 
@@ -92,7 +84,7 @@ module.exports = function(app, auth, mongoose, dirname){
 
                       if(err || !result3){
 
-                        var temp = new Company({cui: properJSON.cuiReclamat, nume: properJSON.reclamat, hasAccount: false});
+                        var temp = new Company({_id: properJSON.cuiReclamat, cui: properJSON.cuiReclamat, nume: properJSON.reclamat, hasAccount: false});
                         temp.save();
 
                       }
@@ -125,11 +117,9 @@ module.exports = function(app, auth, mongoose, dirname){
              })
 
 
-            //***after you wrote everything in the DB, delete the data on the disk***
-            //fs.unlink(dirname+'/tmp/' + cookie_data.username + '.xlsx' function(){
+
               res.send("uploaded");
-            //});                         
-          });
+                       
 
       }
   });
