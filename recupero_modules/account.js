@@ -59,11 +59,11 @@ module.exports = function(app, auth, mongoose){
           var escapedPersonalName = basic.escapeRegExp(userdata.personalName);
           var escapedPhone = basic.escapeRegExp(userdata.number);
 
-          User.find({cui: escapedCui.toLowerCase() },function(err,data){
+          User.find({$or: [{cui: escapedCui.toLowerCase()},{ email: escapedEmail }] },function(err,data){
             if(err){
-              console.log(err);
+              res.send('Email sau CUI deja folost');
             }
-            if(data.length!=0){
+            else if(data.length!=0){
               User.findOne({$and: [{cui: escapedCui.toLowerCase()},{ hasAccount:false }] },function(err,result){
                 if(!err && result){
                   result.cui = escapedCui;
