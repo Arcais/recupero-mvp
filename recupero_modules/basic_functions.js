@@ -128,7 +128,7 @@ module.exports.dateRegex = function(regexObj){
   var date = new Date(parts[2], parts[1] - 1, parts[0]);
   var now = new Date();
   if(date){
-    
+
     if(date > now){//put <6, but I wanna test
       return("Nu puteti folosi o data din viitor!");
     }
@@ -183,7 +183,7 @@ module.exports.safeReclamatie = function(result){
 
       var safeResult = result.map(function(a){
         return {  idFactura: a.idFactura, caenReclamant: a.caenReclamant, reclamat: a.reclamat,
-                  cuiReclamat: a.cuiReclamant, amountRange: a.amountRange, dateRegistered: a.dateRegistered, fromExcel: a.fromExcel,
+                  cuiReclamat: a.cuiReclamat, amountRange: a.amountRange, dateRegistered: a.dateRegistered, fromExcel: a.fromExcel,
                   amountPaid: a.amountPaid }
       });
       return safeResult;
