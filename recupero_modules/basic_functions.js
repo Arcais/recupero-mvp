@@ -183,6 +183,39 @@ return myString.replace(/\D/g,'');
 
 }
 
+
+module.exports.safeReclamatie = function(result){
+
+    if(result){
+
+      var safeResult = result.map(function(a){
+        return {  idFactura: a.idFactura, caenReclamant: a.caenReclamant, reclamat: a.reclamat,
+                  cuiReclamat: a.cuiReclamat, amountRange: module.exports.getAmountRange(a.amount), dateRegistered: a.dateRegistered, fromExcel: a.fromExcel,
+                  amountPaid: a.amountPaid }
+      });
+      return safeResult;
+    }
+    else
+      return [];
+
+}
+
+module.exports.safeCompanie = function(result){
+
+  if(result){
+      var safeResult = result.map(function(a){
+        return {  cui: a.cui, nume: a.nume, address: a.address,
+                  caen: a.caen, hasAccount: a.hasAccount}
+      });
+      return safeResult;
+  }
+  else{
+    return [];
+  }
+
+}
+
+
 //***Basic Functions***
 var escapeRegExp;
 (function (){
