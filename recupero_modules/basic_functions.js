@@ -98,48 +98,60 @@ module.exports.passwordRegex = function(password){
 
 
 module.exports.phoneRegex = function(regexObj){
-  if(regexObj.length < 10){//put <6, but I wanna test
-    return("Numarul de telefon trebuie sa aiba 10 cifre!");
+    if(regexObj){
+        if(regexObj.length < 10){//put <6, but I wanna test
+          return("Numarul de telefon trebuie sa aiba 10 cifre!");
+        }
+        else if(regexObj.length > 10){
+          return("Numarul de telefon trebuie sa aiba 10 cifre!");
+        }
+        else if(regexObj.search(/[^0-9]/) != -1){
+          return("In numarul de telefon puteti folosi numai cifre.");
+        }
+        return("ok");
   }
-  else if(regexObj.length > 10){
-    return("Numarul de telefon trebuie sa aiba 10 cifre!");
-  }
-  else if(regexObj.search(/[^0-9]/) != -1){
-    return("In numarul de telefon puteti folosi numai cifre.");
-  }
-  return("ok");
+  else
+    return "does not exist";
 }
 
 module.exports.personalNameRegex = function(regexObj){
-  if(regexObj.length < 4){//put <4, but I wanna test
-    return("Nume personal prea scurt!");
+  if(regexObj){
+    if(regexObj.length < 4){//put <4, but I wanna test
+      return("Nume personal prea scurt!");
+    }
+    else if(regexObj.length > 50){
+      return("Nume personal prea lung!");
+    }
+    else if(regexObj.search(/[^a-zA-Z ]/) != -1){
+      return("In numele personal puteti folosi numai litere si spatii.");
+    }
+    return("ok");
   }
-  else if(regexObj.length > 50){
-    return("Nume personal prea lung!");
-  }
-  else if(regexObj.search(/[^a-zA-Z ]/) != -1){
-    return("In numele personal puteti folosi numai litere si spatii.");
-  }
-  return("ok");
+  else
+    return "does not exist";
 }
 
 module.exports.dateRegex = function(regexObj){
-  var parts = regexObj.split("\\.");
-  var date = new Date(parts[2], parts[1] - 1, parts[0]);
-  var now = new Date();
-  if(date){
+  if(regexObj){
+    var parts = regexObj.split("\\.");
+    var date = new Date(parts[2], parts[1] - 1, parts[0]);
+    var now = new Date();
+    if(date){
 
-    if(date > now){//put <6, but I wanna test
-      return("Nu puteti folosi o data din viitor!");
+      if(date > now){//put <6, but I wanna test
+        return("Nu puteti folosi o data din viitor!");
+      }
+      else{
+      return("ok");      
+      }
+
     }
     else{
-    return("ok");      
+      return("Data invalida. Va rugam folositi formatul ZZ.LL.AAAA (sau DD.MM.YYYY).");
     }
-
   }
-  else{
-    return("Data invalida. Va rugam folositi formatul ZZ.LL.AAAA (sau DD.MM.YYYY).");
-  }
+  else
+    return "does not exist";
 }
 
 module.exports.amountRegex = function(regexObj){

@@ -70,45 +70,79 @@ module.exports = function(app, auth, mongoose, dirname){
 
                  var jsonInDBFormat = json.Sheet1.forEach(function(a){
 
-                    function convertDotsToDate(dateStr) {
-                        var parts = dateStr.split(".");
-                        return new Date(parts[2], parts[1] - 1, parts[0]);
-                    }
+                  
+                    if(a.A!=''&&a.B!=''&&a.C!=''&&a.D!=''&&a.F!=''){
 
-                    a.F = convertDotsToDate(a.F);
+                        cuiVerifyString = basic.cuiRegex(a.A);
+                        nameVerifyString = basic.companynameRegex(a.B);
+                        amountVerifyString = basic.amountRegex(a.D);
+                        dateVerifyString = basic.dateRegex(a.F);
+                        idFacturaVerifyString = basic.idFacturaRegex(a.C);
 
-                    var properJSON = {_id: result.cui + basic.removeLetters(a.C), cuiReclamat: basic.removeLetters(a.A), reclamat: a.B, idFactura: basic.removeLetters(a.C), amount: a.D, amountRange: basic.getAmountRange(a.D), dateRegistered: a.F, fromExcel: true, amountPaid: false, reclamant: result.nume, cuiReclamant: result.cui, caenReclamant: result.caen};
-
-
-                    Company.findOne({cui: properJSON.cuiReclamat}, function(err, result3){ 
-
-                      if(err || !result3){
-
-                        var temp = new Company({_id: properJSON.cuiReclamat, cui: properJSON.cuiReclamat, nume: properJSON.reclamat, hasAccount: false});
-                        temp.save();
-
-                      }
-
-                    })
-
-
-                    Reclamatie.findOne({_id: result.cui + basic.removeLetters(a.C)}, function(err, result2){
-
-
-                        if(result2 && !err){
-                         
-
-                          for(var k in properJSON){
-                              result2[k]=properJSON[k];
-                          }
-                         
-                          result2.save();
+                        if(cuiVerifyString != "ok"){
+                          return;
+                        }
+                        else if(nameVerifyString != "ok"){
+                          return;
+                        }
+                        else if(amountVerifyString != "ok"){
+                          return;
+                        }
+                        else if(dateVerifyString != "ok"){
+                          return;
+                        }
+                        else if(idFacturaVerifyString != "ok"){
+                          return;
                         }
                         else{
-                          var report = new Reclamatie(properJSON);
-                          report.save();
+
+                          function convertDotsToDate(dateStr) {
+                            if(dateStr){
+                              var parts = dateStr.split(".");
+                              return new Date(parts[2], parts[1] - 1, parts[0]);
+                            }
+                            else
+                              return null;
+                          }
+
+                          if(!convertDotsToDate(a.F)){
+                            return;
+                          }
+
+                          var properJSON = {_id: result.cui + basic.removeLetters(a.C), cuiReclamat: basic.removeLetters(a.A), reclamat: a.B, idFactura: basic.removeLetters(a.C), amount: a.D, amountRange: basic.getAmountRange(a.D), dateRegistered: convertDotsToDate(a.F), fromExcel: true, amountPaid: false, reclamant: result.nume, cuiReclamant: result.cui, caenReclamant: result.caen};
+
+
+                          Company.findOne({cui: properJSON.cuiReclamat}, function(err, result3){ 
+
+                            if(err || !result3){
+
+                              var temp = new Company({_id: properJSON.cuiReclamat, cui: properJSON.cuiReclamat, nume: properJSON.reclamat, hasAccount: false});
+                              temp.save();
+
+                            }
+
+                          })
+
+
+                          Reclamatie.findOne({_id: result.cui + basic.removeLetters(a.C)}, function(err, result2){
+
+
+                              if(result2 && !err){
+                               
+
+                                for(var k in properJSON){
+                                    result2[k]=properJSON[k];
+                                }
+                               
+                                result2.save();
+                              }
+                              else{
+                                var report = new Reclamatie(properJSON);
+                                report.save();
+                              }
+                          })
                         }
-                    })
+                      }
                     
 
                  });
