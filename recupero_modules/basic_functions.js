@@ -98,7 +98,7 @@ module.exports.passwordRegex = function(password){
 
 
 module.exports.phoneRegex = function(regexObj){
-    if(regexObj){
+
         if(regexObj.length < 10){//put <6, but I wanna test
           return("Numarul de telefon trebuie sa aiba 10 cifre!");
         }
@@ -109,13 +109,10 @@ module.exports.phoneRegex = function(regexObj){
           return("In numarul de telefon puteti folosi numai cifre.");
         }
         return("ok");
-  }
-  else
-    return "does not exist";
+
 }
 
 module.exports.personalNameRegex = function(regexObj){
-  if(regexObj){
     if(regexObj.length < 4){//put <4, but I wanna test
       return("Nume personal prea scurt!");
     }
@@ -126,9 +123,7 @@ module.exports.personalNameRegex = function(regexObj){
       return("In numele personal puteti folosi numai litere si spatii.");
     }
     return("ok");
-  }
-  else
-    return "does not exist";
+
 }
 
 module.exports.dateRegex = function(regexObj){
@@ -151,7 +146,7 @@ module.exports.dateRegex = function(regexObj){
     }
   }
   else
-    return "does not exist";
+    return("Data invalida. Va rugam folositi formatul ZZ.LL.AAAA (sau DD.MM.YYYY).");
 }
 
 module.exports.amountRegex = function(regexObj){

@@ -73,11 +73,13 @@ module.exports = function(app, auth, mongoose, dirname){
                   
                     if(a.A!=''&&a.B!=''&&a.C!=''&&a.D!=''&&a.F!=''){
 
-                        cuiVerifyString = basic.cuiRegex(a.A);
+                        cuiVerifyString = basic.cuiRegex(basic.removeLetters(a.A));
                         nameVerifyString = basic.companynameRegex(a.B);
-                        amountVerifyString = basic.amountRegex(a.D);
+                        amountVerifyString = basic.amountRegex(basic.removeLetters(a.D));
                         dateVerifyString = basic.dateRegex(a.F);
-                        idFacturaVerifyString = basic.idFacturaRegex(a.C);
+                        idFacturaVerifyString = basic.idFacturaRegex(basic.removeLetters(a.C));
+
+                        console.log(cuiVerifyString);
 
                         if(cuiVerifyString != "ok"){
                           return;
@@ -102,14 +104,12 @@ module.exports = function(app, auth, mongoose, dirname){
                               return new Date(parts[2], parts[1] - 1, parts[0]);
                             }
                             else
-                              return null;
+                              return;
                           }
 
-                          if(!convertDotsToDate(a.F)){
-                            return;
-                          }
+                          a.F = convertDotsToDate(a.F);
 
-                          var properJSON = {_id: result.cui + basic.removeLetters(a.C), cuiReclamat: basic.removeLetters(a.A), reclamat: a.B, idFactura: basic.removeLetters(a.C), amount: a.D, amountRange: basic.getAmountRange(a.D), dateRegistered: convertDotsToDate(a.F), fromExcel: true, amountPaid: false, reclamant: result.nume, cuiReclamant: result.cui, caenReclamant: result.caen};
+                          var properJSON = {_id: result.cui + basic.removeLetters(a.C), cuiReclamat: basic.removeLetters(a.A), reclamat: a.B, idFactura: basic.removeLetters(a.C), amount: a.D, amountRange: basic.getAmountRange(a.D), dateRegistered: a.F, fromExcel: true, amountPaid: false, reclamant: result.nume, cuiReclamant: result.cui, caenReclamant: result.caen};
 
 
                           Company.findOne({cui: properJSON.cuiReclamat}, function(err, result3){ 
