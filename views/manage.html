@@ -19,6 +19,8 @@
     <link href="css/dashboard.css" rel="stylesheet">
     
     <script src="packages/jquery-1.11.3.min.js"></script>
+    <script src="packages/moment.js"></script>
+    <script src="packages/moment-ro.js"></script>
     <script src="packages/uikit.min.js"></script>
     <script src="packages/uikit-icons.min.js"></script>
 
@@ -106,8 +108,8 @@
                 <th>ID-ul Facturii</th>
                 <th>CUI</th>
                 <th>Denumirea companiei</th>
-                <th>Data datoriei</th>
-                <th>Valoarea datoriei</th>
+                <th style="text-align:center;">Data datoriei</th>
+                <th style="text-align:center;">Valoarea datoriei</th>
                 <th style="text-align:center;">Incarcat prin Excel</th>
                 <th style="text-align:center;">Suma platita integral</th>
                 <th></th>
@@ -117,8 +119,8 @@
                 <td>{{companie.idFactura}}</td>
                 <td>{{companie.cuiReclamat}}</td>
                 <td>{{companie.reclamat}}</td>
-                <td>{{companie.dateRegistered}}</td>
-                <td>{{companie.amount}} RON</td>
+                <td style="text-align:center;">{{companie.dateRegistered | dateOnly}}</td>
+                <td style="text-align:center;">{{companie.amount}} RON</td>
                 <td style="text-align:center;"><span v-if="companie.fromExcel">Da</span><span v-if="!companie.fromExcel">Nu</span></td>
                 <td style="text-align:center;"><span v-if="companie.amountPaid">Da</span><span v-if="!companie.amountPaid">Nu</span></td>
                 <td class="manageBtnUse"><span uk-icon="icon: check; ratio: 1.2" v-if="!companie.amountPaid"></span></td>

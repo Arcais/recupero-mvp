@@ -12,6 +12,8 @@ window.onload = function () {
     currentPage: 1
   },
   created: function(){
+  
+    moment.locale('ro');
 
     $("#vueApp").find('.uk-icon svg:first-child').remove(); //temporary vue+uikit double rendering of svgs in uk-icons workaround
 
@@ -112,6 +114,11 @@ window.onload = function () {
         console.log(error.statusText);
 
       });
+    }
+  },
+  filters: {
+    dateOnly: function (date) {
+      return moment(date).format('Do MMMM YYYY');
     }
   }
   
