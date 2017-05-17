@@ -220,7 +220,7 @@
 
                 <div class="uk-inline">
                   <span class="uk-form-icon" uk-icon="icon: social"></span>
-                  <input id="numeReclamat" class="uk-input uk-width-large" type="text" placeholder="Introduceti CUI-ul debitorului"/>
+                  <input id="numeReclamat" class="uk-input uk-width-large" type="text" placeholder="Introduceti denumirea debitorului"/>
                 </div>
 
                 <div class="uk-inline">
@@ -247,7 +247,7 @@
                   </div>
                 </div>
 
-                <button class="send uk-button uk-button-danger" type="submit" id="" style="margin-top:30px;">Reclamati compania</button>
+                <button class="send uk-button uk-button-danger" type="submit" id="send_reclamatie" style="margin-top:30px;">Reclamati compania</button>
               </form>
 
               <div id="statusManual"></div>
@@ -261,13 +261,19 @@
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras nunc dui, varius vitae ullamcorper aliquam, placerat id sapien. Nullam a porttitor nulla. Morbi ullamcorper, justo sed convallis hendrerit, erat urna congue libero, ut volutpat nibh enim id ex. Nulla facilisi. Mauris congue diam vel magna vulputate sollicitudin. Mauris justo dui, laoreet sed purus nec, iaculis volutpat elit. Vivamus non varius massa, eu ullamcorper lacus.
               </div>
               <h4>Selectati fisierul excel din care sa incarcati rau-platnicii</h4>
-              <div class="excel-upload uk-placeholder uk-text-center">
+<!--               <div class="excel-upload uk-placeholder uk-text-center">
                 <div uk-form-custom>
-                  <input type="file">
+                  <form id="uploadExcelForm" enctype="multipart/form-data" method="post">
+                    <input id="file" name="file" type="file">
+                  </form>
                   <div uk-icon="icon: cloud-upload; ratio:2" style="margin-bottom:10px;"></div>
                   <div class="uk-text-middle">Dati click si selectati sau trageti peste dreptunghi excel-ul cu rau-platnicii</div>
                 </div>
-              </div>
+              </div> -->
+              <form id="test2" enctype="multipart/form-data" action="javascript:void(0);" method="post">
+                  <input id="file2" name="file" type="file" />
+                  <input id="test2btn" type="submit"/>
+              </form>
               <progress id="progressbar" class="uk-progress" value="0" max="100" hidden></progress>
 
               <div id="statusAuto"></div>
