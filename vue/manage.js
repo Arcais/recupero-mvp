@@ -31,11 +31,11 @@ window.onload = function () {
 
       if(response.data.length){
 
-        this.$http.get('/rest/numarReclamant/'+searchLocationArr[0])
+        this.$http.get('/rest/numarReclamant/'+this.personalData.cui)
         .then(function(response){
 
         this.companiesTotalNumber = response.data[0];
-        this.companiesFinalPage = parseInt(this.companiesTotalNumber/10)+1;
+        this.companiesFinalPage = parseInt(this.companiesTotalNumber/8)+1;
 
         }, function(error){
 
@@ -57,6 +57,62 @@ window.onload = function () {
 
     });
 
+  },
+  methods: {
+    getManageFunctions: function(){
+
+      this.$http.get('/rest/reclamant/'+this.personalData.cui+'/'+this.currentPage)
+      .then(function(response){
+
+        this.companiesLoaded = response.data;
+
+        if(response.data.length){
+
+          this.$http.get('/rest/numarReclamant/'+this.personalData.cui)
+          .then(function(response){
+
+          this.companiesTotalNumber = response.data[0];
+          this.companiesFinalPage = parseInt(this.companiesTotalNumber/8)+1;
+
+          }, function(error){
+
+              console.log(error.statusText);
+
+          });
+
+        }
+
+      }, function(error){
+
+          console.log(error.statusText);
+
+      });
+
+    },
+    deleteReclamatie: function(cuiReclamatie){
+      this.$http.post('/rest/deleteReclamatie/'+cuiReclamatie)
+      .then(function(response){
+
+        getManageFunctions();
+
+      }, function(error){
+
+        console.log(error.statusText);
+
+      });
+    },
+    paidReclamatie: function(cuiReclamatie){
+      this.$http.post('/rest/reclamatiePaid/'+cuiReclamatie)
+      .then(function(response){
+
+        getManageFunctions();
+
+      }, function(error){
+
+        console.log(error.statusText);
+
+      });
+    }
   }
   
 

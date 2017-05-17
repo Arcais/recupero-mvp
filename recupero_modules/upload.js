@@ -58,8 +58,12 @@ module.exports = function(app, auth, mongoose, dirname){
                   // });
 
                   for(var b in reports){
-                    reports[b].amountPaid = true;
-                    reports[b].save();
+
+                    if(reports[b].fromExcel){
+                      reports[b].amountPaid = true;
+                      reports[b].save();
+                    }
+                    
                   }
 
 

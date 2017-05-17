@@ -114,6 +114,7 @@
                 <th>Vechimea datoriei</th>
                 <th>Valoarea datoriei</th>
                 <th>CAEN reclamant</th>
+                <th style="text-align:center;">Suma platita integral</th>
               </tr>
               <tr v-for="companie in companiesLoaded">
                 <td>{{companie.cuiReclamat}}</td>
@@ -121,6 +122,7 @@
                 <td>{{companie.dateRange}} zile</td>
                 <td>{{companie.amountRange}} RON</td>
                 <td>{{companie.caenReclamant}}</td>
+                <td style="text-align:center;"><span v-if="companie.amountPaid">Da</span><span v-if="!companie.amountPaid">Nu</span></td>
               </tr>
             </table>
 

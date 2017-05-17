@@ -108,8 +108,10 @@
                 <th>Denumirea companiei</th>
                 <th>Data datoriei</th>
                 <th>Valoarea datoriei</th>
-                <th>Incarcat prin Excel</th>
-                <th>Suma platita integral</th>
+                <th style="text-align:center;">Incarcat prin Excel</th>
+                <th style="text-align:center;">Suma platita integral</th>
+                <th></th>
+                <th></th>
               </tr>
               <tr v-for="companie in companiesLoaded">
                 <td>{{companie.idFactura}}</td>
@@ -117,21 +119,23 @@
                 <td>{{companie.reclamat}}</td>
                 <td>{{companie.dateRegistered}}</td>
                 <td>{{companie.amount}} RON</td>
-                <td><span v-if="companie.fromExcel">Da</span><span v-if="!companie.fromExcel">Nu</span></td>
-                <td><span v-if="companie.amountPaid">Da</span><span v-if="!companie.amountPaid">Nu</span></td>
+                <td style="text-align:center;"><span v-if="companie.fromExcel">Da</span><span v-if="!companie.fromExcel">Nu</span></td>
+                <td style="text-align:center;"><span v-if="companie.amountPaid">Da</span><span v-if="!companie.amountPaid">Nu</span></td>
+                <td class="manageBtnUse"><span uk-icon="icon: check; ratio: 1.2" v-if="!companie.amountPaid"></span></td>
+                <td class="manageBtnUse"><span uk-icon="icon: trash; ratio: 1.2"></span></td>
               </tr>
             </table>
 
             <ul class="uk-pagination uk-flex-center" uk-margin>
-                <li v-if="currentPage>1"><a v-bind:href="'/search/'+currentSearchLink+'/'+(currentPage-1)"><span uk-pagination-previous></span></a></li>
-                <li v-if="currentPage>2"><a v-bind:href="'/search/'+currentSearchLink+'/1'">1</a></li>
+                <li v-if="currentPage>1"><a v-bind:href="'/manage/'+(currentPage-1)"><span uk-pagination-previous></span></a></li>
+                <li v-if="currentPage>2"><a v-bind:href="'/manage/'+1">1</a></li>
                 <li class="uk-disabled" v-if="currentPage>3"><span>...</span></li>
-                <li v-if="currentPage>1"><a v-bind:href="'/search/'+currentSearchLink+'/'+(currentPage-1)">{{currentPage-1}}</a></li>
+                <li v-if="currentPage>1"><a v-bind:href="'/manage/'+(currentPage-1)">{{currentPage-1}}</a></li>
                 <li class="uk-active"><span>{{currentPage}}</span></li>
-                <li v-if="currentPage<companiesFinalPage"><a v-bind:href="'/search/'+currentSearchLink+'/'+(currentPage+1)">{{currentPage+1}}</a></li>
+                <li v-if="currentPage<companiesFinalPage"><a v-bind:href="'/manage/'+(currentPage+1)">{{currentPage+1}}</a></li>
                 <li class="uk-disabled" v-if="currentPage<(companiesFinalPage-2)"><span>...</span></li>
-                <li v-if="currentPage<(companiesFinalPage-1)"><a v-bind:href="'/search/'+currentSearchLink+'/'+companiesFinalPage">{{companiesFinalPage}}</a></li>
-                <li v-if="currentPage<companiesFinalPage"><a v-bind:href="'/search/'+currentSearchLink+'/'+(currentPage+1)"><span uk-pagination-next></span></a></li>
+                <li v-if="currentPage<(companiesFinalPage-1)"><a v-bind:href="'/manage/'+companiesFinalPage">{{companiesFinalPage}}</a></li>
+                <li v-if="currentPage<companiesFinalPage"><a v-bind:href="'/manage/'+(currentPage+1)"><span uk-pagination-next></span></a></li>
             </ul>
           </div>
 
@@ -155,7 +159,9 @@
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras nunc dui, varius vitae ullamcorper aliquam, placerat id sapien. Nullam a porttitor nulla. Morbi ullamcorper, justo sed convallis hendrerit, erat urna congue libero, ut volutpat nibh enim id ex. Nulla facilisi. Mauris congue diam vel magna vulputate sollicitudin. Mauris justo dui, laoreet sed purus nec, iaculis volutpat elit. Vivamus non varius massa, eu ullamcorper lacus.
               </div>
 
-              <form class="insideBox uk-form-stacked uk-width-1-1" action="">
+              <div id="statusManual"></div>
+
+              <form class="insideBox uk-form-stacked uk-width-1-1" action="javascript:void(0);">
                 <div class="uk-inline">
                   <span class="uk-form-icon" uk-icon="icon: tag"></span>
                   <input id="cuiReclamat" class="uk-input uk-width-large" type="text" placeholder="Introduceti CUI-ul debitorului"/>
@@ -184,16 +190,14 @@
                 <div class="uk-inline radioBox">
                   <div class="uk-form-label">Debitorul contesta factura?</div>
                   <div class="uk-form-controls">
-                      <label><input class="uk-radio" type="radio" name="radio1"> Nu</label><br>
-                      <label><input class="uk-radio" type="radio" name="radio1"> Da, acesta a contestat factura in instanta</label><br>
-                      <label><input class="uk-radio" type="radio" name="radio1"> Da, dar factura nu a fost contestata in instanta pana in prezent</label>
+                      <label><input class="uk-radio" type="radio" name="radio1" id="verifNo"> Nu</label><br>
+                      <label><input class="uk-radio" type="radio" name="radio1" id="verifDa"> Da, acesta a contestat factura in instanta</label><br>
+                      <label><input class="uk-radio" type="radio" name="radio1" id="verifDaPlus"> Da, dar factura nu a fost contestata in instanta pana in prezent</label>
                   </div>
                 </div>
 
-                <button class="send uk-button uk-button-danger" type="submit" id="send_reclamatie" style="margin-top:30px;">Reclamati compania</button>
+                <button class="send uk-button uk-button-danger" id="send_reclamatie" style="margin-top:30px;">Reclamati compania</button>
               </form>
-
-              <div id="statusManual"></div>
               
             </div>
             <div id="#excelCompanyLoader" class="formBox">

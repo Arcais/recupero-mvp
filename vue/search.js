@@ -38,7 +38,7 @@ window.onload = function () {
       .then(function(response){
 
       this.companiesTotalNumber = response.data[0];
-      this.companiesFinalPage = parseInt(this.companiesTotalNumber/10)+1;
+      this.companiesFinalPage = parseInt(this.companiesTotalNumber/8)+1;
 
       }, function(error){
 

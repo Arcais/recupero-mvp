@@ -314,3 +314,16 @@ a:hover{
   margin-top:20px;
   height:24px;
 }
+
+.manageBtnUse{
+  cursor:pointer;
+  transition-duration: 0.2s;
+  transition-timing-function: ease;
+}
+
+.manageBtnUse:hover>span{
+  color:$mainclrshade;
+}
+.manageBtnUse:active>span{
+  color:$mainclrshadow;
+}
