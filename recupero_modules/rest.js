@@ -263,34 +263,38 @@ module.exports = function(app, auth, mongoose){
 
   });
 
-//Object format for post
-//{
-//cui
-//nume
-//idFactura 
-//amount
-//dateRegistered
-//}
-app.post('/report', auth.isAuth, function (req, res){                    
+app.post('/report', auth.isAuth, function (req, res){
 
 
   function convertDotsToDate(dateStr) {
-                        var parts = dateStr.split("\\.");
-                        return new Date(parts[2], parts[1] - 1, parts[0]);
-                    }
+    var parts = dateStr.split("\\.");
+    return new Date(parts[2], parts[1] - 1, parts[0]);
+  }
 
     var userdata = basic.escapeRegExpJSON(req.body);
 
-    console.log(userdata);
-
     if(userdata.cui!=''&&userdata.amount!=''&&userdata.nume!=''&&userdata.date!=''&&userdata.idFactura!=''){
+
         cuiVerifyString = basic.cuiRegex(userdata.cui);
         nameVerifyString = basic.companynameRegex(userdata.nume);
+        amountVerifyString = basic.amountRegex(userdata.amount);
+        dateVerifyString = basic.dateRegex(userdata.date);
+        idFacturaVerifyString = basic.idFacturaRegex(userdata.idFactura);
+
         if(cuiVerifyString != "ok"){
           res.send(cuiVerifyString);
         }
         else if(nameVerifyString != "ok"){
           res.send(nameVerifyString);
+        }
+        else if(amountVerifyString != "ok"){
+          res.send(amountVerifyString);
+        }
+        else if(dateVerifyString != "ok"){
+          res.send(dateVerifyString);
+        }
+        else if(idFacturaVerifyString != "ok"){
+          res.send(idFacturaVerifyString);
         }
         else{
     
@@ -302,7 +306,6 @@ app.post('/report', auth.isAuth, function (req, res){
 
             if(data==undefined){
 
-                    console.log(2);
 
                 var temp = new Company({_id: userdata.cui,
                                         cui: userdata.cui,
@@ -315,7 +318,6 @@ app.post('/report', auth.isAuth, function (req, res){
           });
           Company.findOne({ email: req.cookies.username.toLowerCase() },function(err,result){
 
-                    console.log(result);
 
                     var temp = new Reclamatie({ _id: result.cui + basic.removeLetters(userdata.idFactura), 
                                                 cuiReclamat: userdata.cui,
@@ -330,9 +332,8 @@ app.post('/report', auth.isAuth, function (req, res){
                                                 caenReclamant: result.caen,
                                                 reclamat: userdata.nume});
                     temp.save();
-                    console.log(temp);
                     // if(saved){
-                    //   res.send("Reclamatia a fost inregistrata!");
+                      res.send("Reclamatia a fost inregistrata!");
                     // }
 
           });
