@@ -8,7 +8,7 @@ app.get('/', auth.isAuth, function (req, res){
   res.sendFile(dirname + "/views/dashboard.html");
 });
 
-app.get('/register', function (req, res){
+app.get('/register', auth.isNotAuth, function (req, res){
   res.sendFile(dirname + "/views/register.html");
 });
 
@@ -16,7 +16,11 @@ app.get('/dashboard', auth.isAuth, function (req, res){
   res.sendFile(dirname + "/views/dashboard.html");
 });
 
-app.get('/manage', function (req, res){
+app.get('/changepass', auth.isAuth, function (req, res){
+  res.sendFile(dirname + "/views/changepass.html");
+});
+
+app.get('/manage', auth.isAuth, function (req, res){
   res.sendFile(dirname + "/views/manage.html");
 });
 
@@ -28,15 +32,15 @@ app.get('/search/:companySearch', function (req, res){
   res.redirect('/search/'+req.params.companySearch+'/1');
 });
 
-app.get('/info', function (req, res){
+app.get('/info', auth.isAuth, function (req, res){
   res.sendFile(dirname + "/views/info.html");
 });
 
-app.get('/login', function (req, res){
+app.get('/login', auth.isNotAuth, function (req, res){
   res.sendFile(dirname + "/views/login.html");
 });
 
-app.get('/reset', function (req, res){
+app.get('/reset', auth.isAuth,  function (req, res){
   res.sendFile(dirname + "/reset.html");
 });
 

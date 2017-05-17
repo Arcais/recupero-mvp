@@ -45,4 +45,21 @@ else
   res.redirect('/login');
 }
 
+auth.prototype.isNotAuth = function (req, res, next){
+
+if( req.cookies.sesid ){
+  auth.User.findOne({'sesstoken' : req.cookies.sesid}, function(err, user){
+    if(err || user===null){
+      next();
+    }
+    else{
+        res.redirect('/');
+    }
+  });
+}
+else
+  next();
+}
+
+
 module.exports = auth;
