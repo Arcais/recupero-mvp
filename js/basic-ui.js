@@ -109,9 +109,10 @@ $("#reset").on('click', function(){
 $("#report").on('click', function(){
 
 var preparedJSON = {
-        cui : $("#cui").val() ,
-        amount : $("#amount").val() ,
-        dateRegistered : $("#dateRegistered").val() ,
+        cui : $("#cuiReclamat").val() ,
+        nume: $("#numeReclamat").val(),
+        amount : $("#valoare").val() ,
+        date : $("#date").val() ,
         idFactura : $("#idFactura").val() 
       }
       //***login account***

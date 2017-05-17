@@ -270,7 +270,7 @@ app.post('/report', auth.isAuth, function (req, res){
     var parts = dateStr.split("\\.");
     return new Date(parts[2], parts[1] - 1, parts[0]);
   }
-
+  
     var userdata = basic.escapeRegExpJSON(req.body);
 
     if(userdata.cui!=''&&userdata.amount!=''&&userdata.nume!=''&&userdata.date!=''&&userdata.idFactura!=''){
