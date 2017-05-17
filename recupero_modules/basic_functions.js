@@ -215,6 +215,7 @@ module.exports.safeCompanie = function(result){
 
 }
 
+
 //***Basic Functions***
 var escapeRegExp;
 (function (){
@@ -455,6 +456,44 @@ module.exports.getDateRange = function(date){
  
 
   return "";
+
+}
+
+
+module.exports.safeReclamatie = function(result){
+
+    var getDateRange = module.exports.getDateRange;
+    var getAmountRange = module.exports.getAmountRange;
+
+    if(result){
+
+
+      var safeResult = result.map(function(a){
+        var dateRange = getDateRange(a.dateRegistered);
+        var amountRange = getAmountRange(a.amount);
+        return {  idFactura: a.idFactura, caenReclamant: a.caenReclamant, reclamat: a.reclamat,
+                  cuiReclamat: a.cuiReclamat, amountRange: amountRange, dateRange: dateRange,
+                  amountPaid: a.amountPaid }
+      });
+      return safeResult;
+    }
+    else
+      return [];
+
+}
+
+module.exports.safeCompanie = function(result){
+
+  if(result){
+      var safeResult = result.map(function(a){
+        return {  cui: a.cui, nume: a.nume, address: a.address,
+                  caen: a.caen, hasAccount: a.hasAccount}
+      });
+      return safeResult;
+  }
+  else{
+    return [];
+  }
 
 }
 
