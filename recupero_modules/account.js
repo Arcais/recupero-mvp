@@ -10,7 +10,7 @@ module.exports = function(app, auth, mongoose){
   app.post('/creating', auth.isNotAuth, function (req, res){
 
     var userdata = req.body;
-    if(userdata.cui&&userdata.password&&userdata.passwordVerif){
+    if(userdata.cui&&userdata.password&&userdata.passwordVerif&&userdata.email&&userdata.name&&userdata.personalName&&userdata.address&&userdata.caen){
       if(userdata.password == userdata.passwordVerif){
         passwordVerifyString = basic.passwordRegex(userdata.password);
         cuiVerifyString = basic.usernameRegex(userdata.cui);
