@@ -123,8 +123,8 @@
                 <td style="text-align:center;">{{companie.amount}} RON</td>
                 <td style="text-align:center;"><span v-if="companie.fromExcel">Da</span><span v-if="!companie.fromExcel">Nu</span></td>
                 <td style="text-align:center;"><span v-if="companie.amountPaid">Da</span><span v-if="!companie.amountPaid">Nu</span></td>
-                <td class="manageBtnUse"><span uk-icon="icon: check; ratio: 1.2" v-if="!companie.amountPaid"></span></td>
-                <td class="manageBtnUse"><span uk-icon="icon: trash; ratio: 1.2"></span></td>
+                <td class="manageBtnUse"><span uk-icon="icon: check; ratio: 1.2" v-if="!companie.amountPaid" v-on:click="paidReclamatie(companie.idFactura)"></span></td>
+                <td class="manageBtnUse"><span uk-icon="icon: trash; ratio: 1.2" v-on:click="deleteReclamatie(companie.idFactura)"></span></td>
               </tr>
             </table>
 

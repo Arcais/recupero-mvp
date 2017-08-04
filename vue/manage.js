@@ -65,8 +65,9 @@ window.onload = function () {
 
       this.$http.get('/rest/reclamant/'+this.personalData.cui+'/'+this.currentPage)
       .then(function(response){
-
+        console.log(this.companiesLoaded);
         this.companiesLoaded = response.data;
+        console.log(this.companiesLoaded);
 
         if(response.data.length){
 
@@ -91,11 +92,11 @@ window.onload = function () {
       });
 
     },
-    deleteReclamatie: function(cuiReclamatie){
-      this.$http.post('/rest/deleteReclamatie/'+cuiReclamatie)
-      .then(function(response){
+    deleteReclamatie: function(idFactura){
+      this.$http.get('/rest/deleteReclamatie/'+idFactura)
+       .then(function(response){
 
-        getManageFunctions();
+        this.getManageFunctions();
 
       }, function(error){
 
@@ -103,11 +104,20 @@ window.onload = function () {
 
       });
     },
-    paidReclamatie: function(cuiReclamatie){
-      this.$http.post('/rest/reclamatiePaid/'+cuiReclamatie)
+    // deleteReclamatiePrompt: function(idFactura){
+    //   UIkit.modal.confirm('Sunteti sigur ca doriti sa stergeti aceasta reclamatie COMPLET de pe platforma?').then(function() {
+
+    //     this.deleteReclamatie(idFactura);
+
+    //   }, function () {
+    //       console.log('Achievement Unlocked: \"M-am razgandit.\"');
+    //   });
+    // },
+    paidReclamatie: function(idFactura){
+      this.$http.get('/rest/reclamatiePaid/'+idFactura)
       .then(function(response){
 
-        getManageFunctions();
+        this.getManageFunctions();
 
       }, function(error){
 

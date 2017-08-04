@@ -381,6 +381,67 @@ app.post('/report', auth.isAuth, function (req, res){
   });
 
 
+app.get('*/rest/reclamatiePaid/:idFactura', auth.isAuth, function (req, res){
+
+    var idFactura = req.params.idFactura;
+
+    Reclamatie.find({idFactura: idFactura}, function(err, result){
+
+      if(!err && result[0]){
+
+        Reclamatie.updateOne({idFactura: idFactura},{$set: {amountPaid: true}},function(err, result){
+
+            if(!err && result.nModified){
+              res.sendStatus(200);
+            }
+            else{
+              res.sendStatus(500);
+            }
+
+        });
+
+      }
+      else{
+        res.sendStatus(404);
+      }
+
+    });
+
+
+
+});
+
+
+app.get('*/rest/deleteReclamatie/:idFactura', auth.isAuth, function (req, res){
+
+    var idFactura = req.params.idFactura;
+
+    Reclamatie.find({idFactura: idFactura}, function(err, result){
+
+
+      if(!err && result[0]){
+
+        Reclamatie.remove({idFactura: idFactura},function(err, result){
+
+            if(!err && result){
+              res.sendStatus(200);
+            }
+            else{
+              res.sendStatus(500);
+            }
+
+        });
+
+      }
+      else{
+        res.sendStatus(404);
+      }
+
+    });
+
+
+
+});
 
 // var da = new Company({cui:"123"});
 // da.save();
